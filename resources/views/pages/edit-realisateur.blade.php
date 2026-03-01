@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajouter un acteur</title>
+    <title>Modifier un réalisateur</title>
 
     <link rel="stylesheet" href="/styles.css" />
 
@@ -13,18 +13,20 @@
 </head>
 <body class="add-actor-body">
 @include('pages.header-admin')
-
 <main class="add-actor-page">
-    <h1 class="add-actor-title">Ajouter un acteur</h1>
+    <h1 class="add-actor-title">Modifier un réalisateur</h1>
 
-    <form class="add-actor-form" action="{{ route('acteur.store') }}" method="POST">
+    <form class="add-actor-form" action="{{ route('realisateur.update', $realisateurs->idPer) }}" method="POST">
         @csrf
+        @method('PUT')
+
         <div class="add-actor-grid">
             <input
                 type="text"
                 name="nomPer"
                 class="add-actor-input"
                 placeholder="Nom"
+                value="{{ $realisateurs->nomPer }}"
                 required
             />
 
@@ -33,14 +35,15 @@
                 name="prenomPer"
                 class="add-actor-input"
                 placeholder="Prénom"
+                value="{{ $realisateurs->prenomPer }}"
                 required
             />
 
             <input
-                type="date"
                 name="dateNaisPer"
                 class="add-actor-input"
-                required
+                placeholder="Date de naissance"
+                value="{{ $realisateurs->dateNaisPer }}"
             />
 
             <input
@@ -48,18 +51,18 @@
                 name="lieuNaisPer"
                 class="add-actor-input"
                 placeholder="Lieu de naissance"
-                required
+                value="{{ $realisateurs->lieuNaisPer }}"
             />
         </div>
 
         <textarea
             name="bioPer"
             class="add-actor-textarea"
-            placeholder="Biographie"
-        ></textarea>
+            placeholder="Biographie">{{ $realisateurs->bioPer }}
+            </textarea>
 
         <div class="add-actor-actions">
-            <button type="submit" class="add-actor-submit">Ajouter</button>
+            <button type="submit" class="add-actor-submit">Modifier</button>
         </div>
     </form>
 </main>

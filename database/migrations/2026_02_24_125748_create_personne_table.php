@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('agePer');
             $table->String('bioPer');
             $table->String('lieuNaisPer');
-            $table->timestamps();
+            $table->foreignId('idRolePer')->constrained('personne', 'idRolePer');
         });
     }
 

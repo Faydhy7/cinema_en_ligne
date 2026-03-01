@@ -24,7 +24,7 @@
         <h1 class="manage-films-title">Gestion des scénaristes</h1>
 
         <a
-            href="/ajout-scenariste"
+            href="{{ route('scenariste.create') }}"
             class="manage-add-btn">
             Ajouter
         </a>
@@ -33,64 +33,63 @@
     <!-- Liste des films -->
     <div class="manage-films-list">
 
-        {{--        @forelse($films as $film)--}}
-        {{--            <article class="manage-film-row">--}}
+        @forelse($scenaristes as $personne)
+            <article class="manage-acteur-row">
 
-        {{--                <!-- Titre -->--}}
-        {{--                <div class="manage-film-col manage-film-name" title="{{ $film->titreFil }}">--}}
-        {{--                    {{ $film->titreFil }}--}}
-        {{--                </div>--}}
+                <!-- Titre -->
+                <div class="manage-film-col manage-film-name" title="{{ $personne->nomPer }}">
+                    {{ $personne->nomPer }}
+                </div>
 
-        {{--                <!-- Date (adapte le nom du champ si besoin) -->--}}
-        {{--                <div class="manage-film-col manage-film-date">--}}
-        {{--                    {{ $film->dateSortie ? \Carbon\Carbon::parse($film->dateSortie)->format('d/m/Y') : 'Non renseignée' }}--}}
-        {{--                </div>--}}
+                <div class="manage-film-col manage-film-name">
+                    {{ $personne->prenomPer }}
+                </div>
 
-        {{--                <!-- Genre -->--}}
-        {{--                <div class="manage-film-col manage-film-genre">--}}
-        {{--                    {{ $film->genre->libGenre ?? 'Genre inconnu' }}--}}
-        {{--                </div>--}}
+                <!-- Date -->
+                <div class="manage-film-col manage-film-name">
+                    {{ $personne->dateNaisPer ? \Carbon\Carbon::parse($personne->dateNaisPer)->format('d/m/Y') : 'Non renseignée' }}
+                </div>
 
-        {{--                <!-- Durée (si ta durée est déjà formatée, remplace simplement par $film->dureeFil) -->--}}
-        {{--                <div class="manage-film-col manage-film-duration">--}}
-        {{--                    @if(!empty($film->dureFil))--}}
-        {{--                        {{ intdiv($film->dureFil, 60) }}h{{ str_pad($film->dureFil % 60, 2, '0', STR_PAD_LEFT) }}--}}
-        {{--                    @endif--}}
-        {{--                </div>--}}
+                <div class="manage-film-col manage-film-name">
+                    {{ $personne->agePer }}
+                </div>
 
-        {{--                <!-- Description / synopsis -->--}}
-        {{--                <div class="manage-film-col manage-film-description" title="{{ $film->synopsisFil }}">--}}
-        {{--                    {{ $film->descFil ?? 'Aucun synopsis disponible.' }}--}}
-        {{--                </div>--}}
+                <div class="manage-film-col manage-film-name">
+                    {{ $personne->lieuNaisPer }}
+                </div>
 
-        {{--                <!-- Action modifier -->--}}
-        {{--                <a--}}
-        {{--                    --}}{{--                    href="{{ route('films.edit', $film->idFil) }}"--}}
-        {{--                    class="manage-action-btn"--}}
-        {{--                    aria-label="Modifier {{ $film->titreFil }}">--}}
-        {{--                    <i class="bi bi-pencil"></i>--}}
-        {{--                </a>--}}
+                <div class="manage-film-col manage-acteur-name">
+                    {{ $personne->bioPer }}
+                </div>
 
-        {{--                <!-- Action supprimer -->--}}
-        {{--                <form>--}}
-        {{--                    --}}{{--                    action="{{ route('films.destroy', $film->idFil) }}" method="POST" class="manage-delete-form">--}}
-        {{--                    --}}{{--                    @csrf--}}
-        {{--                    --}}{{--                    @method('DELETE')--}}
-        {{--                    <button type="submit"--}}
-        {{--                            class="manage-action-btn manage-action-btn--delete"--}}
-        {{--                            aria-label="Supprimer {{ $film->titreFil }}"--}}
-        {{--                            onclick="return confirm('Supprimer ce film ?')">--}}
-        {{--                        <i class="bi bi-trash"></i>--}}
-        {{--                    </button>--}}
-        {{--                </form>--}}
 
-        {{--            </article>--}}
-        {{--        @empty--}}
-        {{--            <div class="manage-empty-state">--}}
-        {{--                Aucun film à afficher.--}}
-        {{--            </div>--}}
-        {{--        @endforelse--}}
+                <!-- Action modifier -->
+                <a
+                    href="{{ route('scenariste.edit', $personne->idPer) }}"
+                    class="manage-action-btn"
+                    aria-label="Modifier {{ $personne->nomPer }}">
+                    <i class="bi bi-pencil"></i>
+                </a>
 
+                <!-- Action supprimer -->
+                <form
+                    action="{{ route('scenariste.destroy', $personne->idPer) }}" method="POST" class="manage-delete-form">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="manage-action-btn manage-action-btn--delete"
+                            aria-label="Supprimer {{ $personne->nomPer }}"
+                            onclick="return confirm('Supprimer ce film ?')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+
+            </article>
+        @empty
+            <div class="manage-empty-state">
+                Aucun scénariste à afficher.
+            </div>
+        @endforelse
     </div>
 </main>
 

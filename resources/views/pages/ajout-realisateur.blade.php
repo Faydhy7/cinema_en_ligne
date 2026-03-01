@@ -13,14 +13,16 @@
 </head>
 <body class="add-actor-body">
 @include('pages.header-admin')
+
 <main class="add-actor-page">
     <h1 class="add-actor-title">Ajouter un réalisateur</h1>
 
-    <form class="add-actor-form" action="/realisateurs/ajouter" method="POST">
+    <form class="add-actor-form" action="{{ route('realisateur.store') }}" method="POST">
+        @csrf
         <div class="add-actor-grid">
             <input
                 type="text"
-                name="nom"
+                name="nomPer"
                 class="add-actor-input"
                 placeholder="Nom"
                 required
@@ -28,29 +30,30 @@
 
             <input
                 type="text"
-                name="prenom"
+                name="prenomPer"
                 class="add-actor-input"
                 placeholder="Prénom"
                 required
             />
 
             <input
-                type="text"
-                name="date_naissance"
+                type="date"
+                name="dateNaisPer"
                 class="add-actor-input"
-                placeholder="Date de naissance"
+                required
             />
 
             <input
                 type="text"
-                name="lieu_naissance"
+                name="lieuNaisPer"
                 class="add-actor-input"
                 placeholder="Lieu de naissance"
+                required
             />
         </div>
 
         <textarea
-            name="biographie"
+            name="bioPer"
             class="add-actor-textarea"
             placeholder="Biographie"
         ></textarea>

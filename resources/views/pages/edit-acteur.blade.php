@@ -14,7 +14,7 @@
     <body class="add-actor-body">
     @include('pages.header-admin')
     <main class="add-actor-page">
-        <h1 class="add-actor-title">Mofifier un acteur</h1>
+        <h1 class="add-actor-title">Modifier un acteur</h1>
 
         <form class="add-actor-form" action="{{ route('acteur.update', $acteurs->idPer) }}" method="POST">
             @csrf
