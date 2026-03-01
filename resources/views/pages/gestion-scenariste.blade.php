@@ -24,7 +24,7 @@
         <h1 class="manage-films-title">Gestion des scénaristes</h1>
 
         <a
-            href="/ajout-scenariste"
+            href="{{ route('scenariste.create') }}"
             class="manage-add-btn">
             Ajouter
         </a>
@@ -87,7 +87,7 @@
             </article>
         @empty
             <div class="manage-empty-state">
-                Aucun acteur à afficher.
+                Aucun scénariste à afficher.
             </div>
         @endforelse
     </div>

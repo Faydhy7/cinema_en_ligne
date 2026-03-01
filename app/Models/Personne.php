@@ -14,6 +14,12 @@ class Personne extends Model{
         'bioPer',
         'dateNaisPer',
         'agePer',
-        'lieuNaisPer'
+        'lieuNaisPer',
+        'idRolePer'
     ];
+
+    public function rolepersonne()
+    {
+        return $this->belongsTo(RolePersonne::class, 'idRolePer', 'idRolePer');
+    }
 }

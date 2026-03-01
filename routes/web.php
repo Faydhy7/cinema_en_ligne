@@ -63,20 +63,12 @@ Route::get('/inscription_reservation', function () {
     return view('pages.inscription_reservation');
 });
 
-Route::get('/ajout-acteur', function () {
-    return view('pages.ajout-acteur');
-});
-
-Route::get('/ajout-realisateur', function () {
-    return view('pages.ajout-realisateur');
-});
-
-Route::get('/ajout-scenariste', function () {
-    return view('pages.ajout-scenariste');
-});
-
 Route::get('/ajout-cinema', function () {
     return view('pages.ajout-cinema');
+});
+
+Route::get('/reservation', function () {
+    return view('pages.reservation');
 });
 
 

@@ -24,7 +24,7 @@
         <h1 class="manage-films-title">Gestion des acteurs</h1>
 
         <a
-            href="/ajout-acteur"
+            href="{{ route('acteur.create') }}"
             class="manage-add-btn">
             Ajouter
         </a>

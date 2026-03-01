@@ -55,20 +55,6 @@ class FilmController extends Controller
         return view('pages.tous_films-admin', compact('films', 'genres', 'selectedGenres'));
     }
 
-    public function GestionAdmin(Request $request)
-    {
-        $genres = Genre::orderBy('libGenre')->get();
-        $selectedGenres = array_map('intval', $request->input('genres', []));
-        $query = Film::query();
-        if (!empty($selectedGenres)) {
-            $query->whereIn('idGenre', $selectedGenres);
-        }
-
-        $films = $query->get();
-
-        return view('pages.gestion_films-admin', compact('films', 'genres', 'selectedGenres'));
-    }
-
     //Contrôle les films qui s'affiche dans la page d'accueil
     public function filmsAccueil(){
         $filmsAuCinema = Film::where('dateSortie', '<=', now())

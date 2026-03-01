@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Genre;
 use App\Models\Film;
+use App\Models\RolePersonne;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $acteur = RolePersonne::create(['libRolePer' => 'Acteur']);
+        $realisateur = RolePersonne::create(['libRolePer' => 'Realisateur']);
+        $scenariste = RolePersonne::create(['libRolePer' => 'Scenariste']);
+
         // 1. CRÉATION DES GENRES
         $action = Genre::create(['libGenre' => 'Action']);
         $scifi = Genre::create(['libGenre' => 'Science-Fiction']);
