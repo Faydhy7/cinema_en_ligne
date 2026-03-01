@@ -20,13 +20,17 @@ class ConnexionController extends Controller {
             'password' => 'required'
         ]);
 
-
-
         $credentials = $request->only('username', 'password');
-
         $remember = $request->has('remember');
 
+        //dd(Auth::attempt($credentials));
         if (Auth::attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+            return redirect()->route('accueil')
+                ->with('success', 'Connexion effectuée');
+        }
+
+        /*if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->route('accueil');
         }
@@ -35,7 +39,7 @@ class ConnexionController extends Controller {
             $request->session()->regenerate();
             return redirect()->route('accueil')
                 ->with('success', 'Connexion effectuée');
-        }
+        }*/
 
         return back()->withErrors([
             'username' => 'Identifiants incorrects'

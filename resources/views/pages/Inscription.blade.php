@@ -14,7 +14,7 @@
             <img src="{{ asset('images/logo_CineForAll.png') }}"
                  width="289.5"
                  height="260.5">
-
+    </a>
 
     <div class="form-section">
         <div class="form-card">
