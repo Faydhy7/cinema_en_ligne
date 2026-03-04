@@ -28,6 +28,24 @@ class FilmAdminController extends Controller
         return view('pages.gestion_films-admin', compact('films', 'genres', 'selectedGenres'));
     }
 
+    public function tousFilm(Request $request)
+    {
+        $genres = Genre::orderBy('libGenre')->get();
+        $selectedGenres = array_map('intval', $request->input('genres', []));
+        $recherche = $request->input('recherche');
+        $query = Film::query();
+        if (!empty($selectedGenres)) {
+            $query->whereIn('idGenre', $selectedGenres);
+        }
+        if (!empty($recherche)) {
+            $query->where('titreFil', 'LIKE', '%' . $recherche . '%');
+        }
+
+        $films = $query->get();
+
+        return view('pages.tous_films-admin', compact('films', 'genres', 'selectedGenres'));
+    }
+
     public function show(Film $film)
     {
         $film->load('genre');
@@ -236,4 +254,4 @@ class FilmAdminController extends Controller
         return view('pages.ajout-programme', compact('films', 'genres', 'selectedGenres'));
     }
 
-}
+    }

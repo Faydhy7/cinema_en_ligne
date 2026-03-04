@@ -84,7 +84,7 @@ Route::get('/', [FilmController::class, 'filmsAccueil'])->name('accueil');
 
 //Admin
 
-Route::get('/tous-les-films-admin', [FilmAdminController::class, 'index'])->name('films.admin.index');
+Route::get('/tous-les-films-admin', [FilmAdminController::class, 'tousFilm'])->name('films.admin.index');
 
 Route::get('/actuellement-au-cinema-admin', [FilmAdminController::class, 'filmsAuCinemaAdmin'])->name('films.admin.cinema');
 
