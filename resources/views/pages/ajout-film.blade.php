@@ -41,7 +41,7 @@
                     />
 
                     <input
-                        type="text"
+                        type="date"
                         name="date_sortie"
                         class="add-actor-input add-film-meta-input"
                         placeholder="Date de sortie"
@@ -60,6 +60,10 @@
                                 <path d="M40.5 48.5H55.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
                             </svg>
                         </label>
+                        <p class="program-help">
+                            Pour garantir une qualité visuelle optimale, l'équipe vous recommande d'utiliser les images de
+                            <a href="https://www.themoviedb.org/?language=fr" target="_blank" style="color: #94a3b8; text-decoration: underline;">The Movie Database (TMDB)</a>.
+                        </p>
 
                         <input
                             id="affiche"
@@ -96,7 +100,6 @@
 
             <!-- Colonne droite -->
             <aside class="add-film-side-col">
-                <!-- Réalisateur -->
                 <div class="add-film-side-group">
                     <label class="add-film-side-label">Réalisateur</label>
 
@@ -105,9 +108,9 @@
                             <div class="add-film-select-wrap">
                                 <select name="realisateurs[]" class="add-actor-input add-film-side-input add-film-side-input--removable">
                                     <option value="" selected disabled></option>
-                                    <option value="1">Christopher Nolan</option>
-                                    <option value="2">Greta Gerwig</option>
-                                    <option value="3">Denis Villeneuve</option>
+                                    @foreach($realisateurs as $p)
+                                        <option value="{{ $p->idPer }}">{{ $p->prenomPer }} {{ $p->nomPer }}</option>
+                                    @endforeach
                                 </select>
 
                                 <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer ce réalisateur">×</button>
@@ -117,14 +120,11 @@
                         </div>
                     </div>
 
-                    <a href="/realisateur/ajouter" class="add-film-side-link">
+                    <a href="{{ route('realisateur.create') }}" class="add-film-side-link">
                         Ajouter un nouveau réalisateur
                     </a>
                 </div>
 
-
-
-                <!-- Acteurs -->
                 <div class="add-film-side-group">
                     <p class="add-film-side-label">Acteurs</p>
 
@@ -133,9 +133,9 @@
                             <div class="add-film-select-wrap">
                                 <select name="acteurs[]" class="add-actor-input add-film-side-input add-film-side-input--removable">
                                     <option value="" selected disabled></option>
-                                    <option value="1">Acteur 1</option>
-                                    <option value="2">Acteur 2</option>
-                                    <option value="3">Acteur 3</option>
+                                    @foreach($acteurs as $p)
+                                        <option value="{{ $p->idPer }}">{{ $p->prenomPer }} {{ $p->nomPer }}</option>
+                                    @endforeach
                                 </select>
 
                                 <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer cet acteur">×</button>
@@ -145,12 +145,11 @@
                         </div>
                     </div>
 
-                    <a href="/acteur/ajouter" class="add-film-side-link">
+                    <a href="{{ route('acteur.create') }}" class="add-film-side-link">
                         Ajouter un nouvel acteur
                     </a>
                 </div>
 
-                <!-- Scénariste -->
                 <div class="add-film-side-group">
                     <label class="add-film-side-label">Scénariste</label>
 
@@ -159,9 +158,9 @@
                             <div class="add-film-select-wrap">
                                 <select name="scenaristes[]" class="add-actor-input add-film-side-input add-film-side-input--removable">
                                     <option value="" selected disabled></option>
-                                    <option value="1">Scénariste 1</option>
-                                    <option value="2">Scénariste 2</option>
-                                    <option value="3">Scénariste 3</option>
+                                    @foreach($scenaristes as $p)
+                                        <option value="{{ $p->idPer }}">{{ $p->prenomPer }} {{ $p->nomPer }}</option>
+                                    @endforeach
                                 </select>
 
                                 <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer ce scénariste">×</button>
@@ -171,7 +170,7 @@
                         </div>
                     </div>
 
-                    <a href="/scenariste/ajouter" class="add-film-side-link">
+                    <a href="{{ route('scenariste.create') }}" class="add-film-side-link">
                         Ajouter un nouveau scénariste
                     </a>
                 </div>
@@ -183,6 +182,6 @@
         </div>
     </form>
 </main>
-
+@vite('resources/js/ajout-personne.js')
 </body>
 </html>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Personne;
 
 class Film extends Model{
     protected $table = 'film';
@@ -20,4 +21,27 @@ class Film extends Model{
     {
         return $this->belongsTo(Genre::class, 'idGenre', 'idGenre');
     }
+
+    public function personnes()
+    {
+        return $this->belongsToMany(\App\Models\Personne::class, 'participe', 'idFil', 'idPer')
+            ->withPivot('idRolePer');
+    }
+
+    public function acteurs()
+    {
+        return $this->personnes()->where('personne.idRolePer', 1);
+    }
+
+    public function realisateurs()
+    {
+        return $this->personnes()->where('personne.idRolePer', 2);
+    }
+
+    public function scenaristes()
+    {
+        return $this->personnes()->where('personne.idRolePer', 3);
+    }
+
+
 }
