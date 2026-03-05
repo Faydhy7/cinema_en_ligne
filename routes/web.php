@@ -9,6 +9,7 @@ use App\Http\Controllers\RealisateurController;
 use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
 use App\Http\Controllers\CinemaController;
+use App\Http\Controllers\DeconnexionController;
 
 //Route::get('/', function () {
 //    return view('pages.accueil');
@@ -29,6 +30,8 @@ Route::get('/connexion', function () {
     return view('pages.connexion');
 });
 Route::post('/connexion', [ConnexionController::class, 'login'])->name('login');
+
+Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('logout');
 
 Route::get('/inscription', function () {
     return view('pages.Inscription');

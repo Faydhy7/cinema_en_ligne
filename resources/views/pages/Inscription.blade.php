@@ -44,6 +44,10 @@
                     @enderror
                 </div>
 
+                <div>
+                    <input type="checkbox" name="remember"> Se souvenir de moi
+                </div>
+
                 <button type="submit" class="submit-btn">S'inscrire</button>
             </form>
 

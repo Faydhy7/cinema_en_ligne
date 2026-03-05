@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Utilisateur;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 class InscriptionController extends Controller {
     public function showLogin()
@@ -24,12 +24,15 @@ class InscriptionController extends Controller {
 
         );
 
-        User::create([
+        $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect('/')
-            ->with('success', 'Inscription réussie');
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->route('accueil')
+            ->with('success', 'Inscription effectuée');
     }
 }
