@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static has(string $string)
+ */
 class Film extends Model{
     protected $table = 'film';
     protected $primaryKey = 'idFil';
@@ -15,4 +18,29 @@ class Film extends Model{
         'dureFil',
         'idGenre'
     ];
+
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class, 'idGenre', 'idGenre');
+    }
+    public function seances() {
+        return $this->hasMany(Seance::class, 'idFil', 'idFil');
+    }
+    public function realisateurs()
+    {
+        return $this->belongsToMany(Personne::class, 'participe', 'idFil', 'idPer')
+            ->whereHas('roles', function($q) {
+                $q->where('libRolePer', 'Réalisateur');
+            })
+            ->withPivot('idRolePer');
+    }
+
+    public function acteursPrincipaux()
+    {
+        return $this->belongsToMany(Personne::class, 'participe', 'idFil', 'idPer')
+            ->whereHas('roles', function($q) {
+                $q->where('libRolePer', 'Acteur principal');
+            })
+            ->withPivot('idRolePer');
+    }
 }
