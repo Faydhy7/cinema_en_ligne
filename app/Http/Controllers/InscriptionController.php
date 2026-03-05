@@ -24,12 +24,16 @@ class InscriptionController extends Controller {
 
         );
 
+
+
         $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
+        $remember = $request->has('remember');
+
+        Auth::login($user,$remember);
         $request->session()->regenerate();
 
         return redirect()->route('accueil')
