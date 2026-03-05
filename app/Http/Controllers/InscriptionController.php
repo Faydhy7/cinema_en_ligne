@@ -29,7 +29,7 @@ class InscriptionController extends Controller {
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect('/accueil')
+        return redirect('/')
             ->with('success', 'Inscription réussie');
     }
 }

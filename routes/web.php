@@ -22,6 +22,8 @@ use App\Http\Controllers\FilmAdminController;
     return "Connexion effectuée";
 })->name('accueil');*/
 
+Route::get('/', [FilmController::class, 'filmsAccueil'])->name('accueil');
+
 Route::get('/connexion', function () {
     return view('pages.connexion');
 });
@@ -30,7 +32,7 @@ Route::post('/connexion', [ConnexionController::class, 'login'])->name('login');
 Route::get('/inscription', function () {
     return view('pages.Inscription');
 });
-Route::post('/inscription', [InscriptionController::class, 'login'])->name('sign-in');
+Route::post('/inscription', [InscriptionController::class, 'sign_in'])->name('sign-in');
 
 Route::get('/seance', function () {
     return view('pages.seance');
@@ -79,7 +81,7 @@ Route::get('/actuellement-au-cinema', [FilmController::class, 'filmsAuCinema'])-
 
 Route::get('/films/{film}', [FilmController::class, 'show'])->name('films.show');
 
-Route::get('/', [FilmController::class, 'filmsAccueil'])->name('accueil');
+
 
 
 //Admin
