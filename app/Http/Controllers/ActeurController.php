@@ -47,9 +47,14 @@ class ActeurController extends Controller
             ->with('success', 'Acteur ajouté');
     }
 
-    public function show(Personne $personne)
+    public function show($id)
     {
-        //
+        $acteur = Personne::where('idRolePer', 1)->find($id);
+
+        return view('pages.personne-detail', [
+            'personne' => $acteur,
+            'role' => 'acteur',
+        ]);
     }
 
     public function edit($id)

@@ -9,19 +9,6 @@ use App\Http\Controllers\RealisateurController;
 use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
 
-//Route::get('/', function () {
-//    return view('pages.accueil');
-//})->name('accueil');
-//
-//Route::get('/accueil', function () {
-//    return view('pages.accueil');
-//})->name('accueil');
-
-//route de test
-/*Route::get('/accueil', function () {
-    return "Connexion effectuée";
-})->name('accueil');*/
-
 Route::get('/connexion', function () {
     return view('pages.connexion');
 });
@@ -30,7 +17,7 @@ Route::post('/connexion', [ConnexionController::class, 'login'])->name('login');
 Route::get('/inscription', function () {
     return view('pages.Inscription');
 });
-Route::post('/inscription', [InscriptionController::class, 'login'])->name('sign-in');
+Route::post('/inscription', [InscriptionController::class, 'sign-in'])->name('sign-in');
 
 Route::get('/seance', function () {
     return view('pages.seance');
@@ -72,6 +59,7 @@ Route::get('/reservation', function () {
     return view('pages.reservation');
 });
 
+//Film
 
 Route::get('/tous-les-films', [FilmController::class, 'index'])->name('films.index');
 
@@ -112,6 +100,8 @@ Route::get('/ajout-acteur/ajouter', [ActeurController::class, 'create'])->name('
 
 Route::get('/gestion-acteur', [ActeurController::class, 'index'])->name('acteur.admin.gestion');
 
+Route::get('/acteur/{id}', [ActeurController::class, 'show'])->name('acteur.show');
+
 Route::post('/ajout-acteur/ajouter', [ActeurController::class, 'store'])->name('acteur.store');
 
 Route::get('/admin/acteur/{id}/edit', [ActeurController::class, 'edit'])->name('acteur.edit');
@@ -123,6 +113,8 @@ Route::delete('/acteur/{id}', [ActeurController::class, 'destroy'])->name('acteu
 //Réalisateur
 
 Route::get('/gestion-realisateur', [RealisateurController::class, 'index'])->name('realisateur.admin.gestion');
+
+Route::get('/realisateur/{id}', [RealisateurController::class, 'show'])->name('realisateur.show');
 
 Route::get('/ajout-realisateur/ajouter', [RealisateurController::class, 'create'])->name('realisateur.create');
 
@@ -137,6 +129,8 @@ Route::delete('/realisateur/{id}', [RealisateurController::class, 'destroy'])->n
 //Scénariste
 
 Route::get('/gestion-scenariste', [ScenaristeController::class, 'index'])->name('scenariste.admin.gestion');
+
+Route::get('/scenariste/{id}', [ScenaristeController::class, 'show'])->name('scenariste.show');
 
 Route::get('/ajout-scenariste/ajouter', [ScenaristeController::class, 'create'])->name('scenariste.create');
 
