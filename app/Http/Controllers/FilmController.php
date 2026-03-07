@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Film;
 use App\Models\Genre;
+use App\Models\Langue;
+use App\Models\TypeSalle;
+use App\Models\TypeSeance;
 use App\Models\Personne;
 use Carbon\Carbon;
 
@@ -55,12 +58,13 @@ class FilmController extends Controller
 
     public function filmsAuCinema(Request $request)
     {
-
         $genres = Genre::orderBy('libGenre')->get();
+        $type_salles = TypeSalle::all();
+        $langues = Langue::all();
 
         $selectedGenres = array_map('intval', $request->input('genres', []));
 
-        $query = Film::query();
+        $query = Film::has('seances');
 
         if (!empty($selectedGenres)) {
             $query->whereIn('idGenre', $selectedGenres);
@@ -68,7 +72,7 @@ class FilmController extends Controller
 
         $films = $query->get();
 
-        return view('pages.actuellement-au-cinema', compact('films', 'genres', 'selectedGenres'));
+        return view('pages.actuellement-au-cinema', compact('films', 'genres', 'selectedGenres', 'type_salles', 'langues'));
     }
 
     public function show(Film $film)

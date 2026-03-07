@@ -3,121 +3,110 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personne;
+use App\Models\Participe;
+use App\Models\RolePersonne;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class RealisateurController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $realisateurs = Personne::where('idRolePer', 2)->get();
+        $realisateurs = Personne::whereHas('roles', function ($q) {
+            $q->where('libRolePer', 'Realisateur');
+        })->get();
+
         return view('pages.gestion-realisateur', compact('realisateurs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.ajout-realisateur');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nomPer' => 'required|string|max:255',
-            'prenomPer' => 'required|string|max:255',
-            'bioPer' => 'nullable|string',
+            'nomPer'      => 'required|string|max:255',
+            'prenomPer'   => 'required|string|max:255',
+            'bioPer'      => 'nullable|string',
             'dateNaisPer' => 'required|date',
             'lieuNaisPer' => 'required|string|max:255',
         ]);
 
-        $dateNaissance = Carbon::parse($validated['dateNaisPer']);
-        $ageCalcule = $dateNaissance->age;
-
         $realisateur = new Personne();
-        $realisateur->nomPer = $validated['nomPer'];
-        $realisateur->prenomPer = $validated['prenomPer'];
-        $realisateur->bioPer = $validated['bioPer'];
+        $realisateur->nomPer      = $validated['nomPer'];
+        $realisateur->prenomPer   = $validated['prenomPer'];
+        $realisateur->bioPer      = $validated['bioPer'] ?? null;
         $realisateur->dateNaisPer = $validated['dateNaisPer'];
         $realisateur->lieuNaisPer = $validated['lieuNaisPer'];
-        $realisateur->agePer = $ageCalcule;
-        $realisateur->idRolePer = 2;
-
         $realisateur->save();
+
+        $role = RolePersonne::where('libRolePer', 'Realisateur')->first();
+        if ($role) {
+            Participe::create([
+                'idPer'     => $realisateur->idPer,
+                'idFil'     => 1,
+                'idRolePer' => $role->idRolePer,
+            ]);
+        }
+
         return redirect()
             ->route('realisateur.admin.gestion')
             ->with('success', 'Réalisateur ajouté');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
-        $realisateur = Personne::where('idRolePer', 2)->find($id);
+        $realisateur = Personne::whereHas('roles', function ($q) {
+            $q->where('libRolePer', 'Realisateur');
+        })->findOrFail($id);
 
         return view('pages.personne-detail', [
             'personne' => $realisateur,
-            'role' => 'acteur',
+            'role'     => 'realisateur',
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
-        $realisateurs = Personne::where('idRolePer', 2)->find($id);
-        return view('pages.edit-realisateur', compact('realisateurs'));
+        $realisateur = Personne::whereHas('roles', function ($q) {
+            $q->where('libRolePer', 'Realisateur');
+        })->findOrFail($id);
+
+        return view('pages.edit-realisateur', compact('realisateur'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-        $personne = Personne::where('idRolePer', 2)->find($id);
+        $personne = Personne::findOrFail($id);
 
         $validated = $request->validate([
-            'nomPer' => 'required|string|max:255',
-            'prenomPer' => 'required|string|max:255',
-            'bioPer' => 'nullable|string',
+            'nomPer'      => 'required|string|max:255',
+            'prenomPer'   => 'required|string|max:255',
+            'bioPer'      => 'nullable|string',
             'dateNaisPer' => 'required|date',
             'lieuNaisPer' => 'required|string|max:255',
         ]);
 
-        $dateNaissance = Carbon::parse($validated['dateNaisPer']);
-        $ageCalcule = $dateNaissance->age;
-
-        $personne->nomPer = $validated['nomPer'];
-        $personne->prenomPer = $validated['prenomPer'];
-        $personne->bioPer = $validated['bioPer'];
+        $personne->nomPer      = $validated['nomPer'];
+        $personne->prenomPer   = $validated['prenomPer'];
+        $personne->bioPer      = $validated['bioPer'] ?? null;
         $personne->dateNaisPer = $validated['dateNaisPer'];
         $personne->lieuNaisPer = $validated['lieuNaisPer'];
-        $personne->agePer = $ageCalcule;
-        $personne->idRolePer = 2;
-
         $personne->save();
+
         return redirect()
             ->route('realisateur.admin.gestion')
             ->with('success', 'Réalisateur modifié');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $realisateurs = Personne::where('idRolePer', 2)->find($id);
-        $realisateurs->delete();
-        return redirect()->route('realisateur.admin.gestion')->with('success', 'Réalisateur supprimé');
+        $realisateur = Personne::findOrFail($id);
+        $realisateur->delete();
 
+        return redirect()
+            ->route('realisateur.admin.gestion')
+            ->with('success', 'Réalisateur supprimé');
     }
 }

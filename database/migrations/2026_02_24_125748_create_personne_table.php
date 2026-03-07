@@ -16,10 +16,9 @@ return new class extends Migration
             $table->String('nomPer');
             $table->String('prenomPer');
             $table->DATE('dateNaisPer');
-            $table->String('agePer');
             $table->String('bioPer');
             $table->String('lieuNaisPer');
-            $table->foreignId('idRolePer')->constrained('personne', 'idRolePer');
+            $table->string('imgPer')->nullable();;
         });
     }
 

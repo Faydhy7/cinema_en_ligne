@@ -13,13 +13,11 @@ class Personne extends Model{
         'prenomPer',
         'bioPer',
         'dateNaisPer',
-        'agePer',
         'lieuNaisPer',
-        'idRolePer'
+        'imgPer'
     ];
-
-    public function rolepersonne()
+    public function roles()
     {
-        return $this->belongsTo(RolePersonne::class, 'idRolePer', 'idRolePer');
+        return $this->belongsToMany(RolePersonne::class, 'participe', 'idPer', 'idRolePer');
     }
 }
