@@ -56,7 +56,8 @@
     <div class="popup">
         @auth
         <h2>Mon compte</h2>
-            <form method="POST" action="#" style="margin-top:10px;">
+            <form method="POST" action="{{ route('logout') }}" style="margin-top:10px;">
+                @csrf
                 <button type="submit" class="popup-btn btn-logout">
                     Se déconnecter
                 </button>

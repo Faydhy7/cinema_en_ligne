@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Film;
 use App\Models\Genre;
 use App\Models\Langue;
@@ -52,6 +53,9 @@ class FilmController extends Controller
             ->orderBy('dateSortie', 'asc')
             ->take(6)
             ->get();
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return view('pages.accueil-admin', compact('filmsAuCinema', 'filmsProchainement'));
+        }
         return view('pages.accueil', compact('filmsAuCinema', 'filmsProchainement'));
     }
 

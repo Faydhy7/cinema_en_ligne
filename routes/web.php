@@ -8,6 +8,7 @@ use App\Http\Controllers\ActeurController;
 use App\Http\Controllers\RealisateurController;
 use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
+use App\Http\Controllers\DeconnexionController;
 
 Route::get('/connexion', function () {
     return view('pages.connexion');
@@ -18,6 +19,8 @@ Route::get('/inscription', function () {
     return view('pages.Inscription');
 });
 Route::post('/inscription', [InscriptionController::class, 'sign-in'])->name('sign-in');
+
+Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('logout');
 
 Route::get('/seance', function () {
     return view('pages.seance');
