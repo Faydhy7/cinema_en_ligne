@@ -20,7 +20,7 @@
         <div class="form-card">
             <h1>Inscription</h1>
 
-            <form method="POST" action="{{ route('sign-in') }}">
+            <form method="POST" action="{{ route('sign_in') }}">
             @csrf
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur:</label>
@@ -42,6 +42,10 @@
                         {{ $message }}
                     </div>
                     @enderror
+                </div>
+
+                <div>
+                    <input type="checkbox" name="remember"> Se souvenir de moi
                 </div>
 
                 <button type="submit" class="submit-btn">S'inscrire</button>

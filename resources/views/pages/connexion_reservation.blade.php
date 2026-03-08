@@ -35,7 +35,8 @@
         <div class="form-card">
             <h1>Connexion</h1>
 
-            <form>
+            <form method="POST" action="{{ route('login_reservation') }}">
+                @csrf
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur:</label>
                     <input type="text" id="username" name="username" required>
@@ -44,6 +45,10 @@
                 <div class="form-group">
                     <label for="password">Mot de passe:</label>
                     <input type="password" id="password" name="password" required>
+                </div>
+
+                <div>
+                    <input type="checkbox" name="remember"> Se souvenir de moi
                 </div>
 
                 <button type="submit" class="submit-btn">Se connecter</button>

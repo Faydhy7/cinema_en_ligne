@@ -30,16 +30,31 @@ class ConnexionController extends Controller {
                 ->with('success', 'Connexion effectuée');
         }
 
-        /*if (Auth::attempt($credentials, $remember)) {
-            $request->session()->regenerate();
-            return redirect()->route('accueil');
-        }
+        return back()->withErrors([
+            'username' => 'Identifiants incorrects'
+        ]);
 
-        if (Auth::attempt($credentials)) {
+    }
+
+    public function login_reservation(Request $request)
+    {
+        //dd("Connexion OK");
+
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        $credentials = $request->only('username', 'password');
+        $remember = $request->has('remember');
+
+        //dd(Auth::attempt($credentials));
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
-            return redirect()->route('accueil')
+            //ajouter prise en charge reservation  ici
+            return redirect()->route('seance')
                 ->with('success', 'Connexion effectuée');
-        }*/
+        }
 
         return back()->withErrors([
             'username' => 'Identifiants incorrects'
