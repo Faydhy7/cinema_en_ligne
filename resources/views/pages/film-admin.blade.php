@@ -44,8 +44,7 @@
                         ({{ intdiv($film->dureFil, 60) }}h{{ str_pad($film->dureFil % 60, 2, '0', STR_PAD_LEFT) }})
                     @endif
                 </p>
-                <p><span class="meta-label">Avec  </span></p>
-                <p><span class="meta-label">Réalisé par </span></p>
+                {{--                <p><span class="meta-label">De</span> Edgar Wright</p>--}}
             </div>
 
             <p class="film-detail-synopsis">

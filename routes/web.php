@@ -8,6 +8,7 @@ use App\Http\Controllers\ActeurController;
 use App\Http\Controllers\RealisateurController;
 use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
+use App\Http\Controllers\CinemaController;
 
 Route::get('/connexion', function () {
     return view('pages.connexion');
@@ -141,3 +142,10 @@ Route::get('/admin/scenariste/{id}/edit', [ScenaristeController::class, 'edit'])
 Route::put('/admin/scenariste/{id}', [ScenaristeController::class, 'update'])->name('scenariste.update');
 
 Route::delete('/scenariste/{id}', [ScenaristeController::class, 'destroy'])->name('scenariste.destroy');
+
+Route::get('/seance', function () {
+    $cinema =\App\Models\Cinema::inRandomOrder()->first();
+    return redirect()->route('seance.show', $cinema->idCin);
+});
+//page seance et redirection vers un film aleatoire
+Route::get('/seance/{cinema}', [CinemaController::class, 'show'])->name('seance.show');

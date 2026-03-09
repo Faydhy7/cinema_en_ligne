@@ -24,7 +24,7 @@
         <h1 class="manage-films-title">Gestion des réalisateurs</h1>
 
         <a
-            href="{{ route('realisateur.create') }}"
+            href="/ajout-realisateur"
             class="manage-add-btn">
             Ajouter
         </a>

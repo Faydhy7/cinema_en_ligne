@@ -44,8 +44,20 @@
                         ({{ intdiv($film->dureFil, 60) }}h{{ str_pad($film->dureFil % 60, 2, '0', STR_PAD_LEFT) }})
                     @endif
                 </p>
-                <p><span class="meta-label">Avec  </span></p>
-                <p><span class="meta-label">Réalisé par </span></p>
+                <p><span class="meta-label">Réalisé par </span>
+                    @forelse($film->realisateurs as $real)
+                        {{ $real->prenomPer }} {{ $real->nomPer }}{{ !$loop->last ? ', ' : '' }}
+                    @empty
+                        <em>Non renseigné</em>
+                    @endforelse
+                </p>
+                <p><span class="meta-label">Avec </span>
+                    @forelse($film->acteursPrincipaux as $acteur)
+                        {{ $acteur->prenomPer }} {{ $acteur->nomPer }}{{ !$loop->last ? ', ' : '' }}
+                    @empty
+                        <em>Non renseigné</em>
+                    @endforelse
+                </p>
             </div>
 
             <p class="film-detail-synopsis">

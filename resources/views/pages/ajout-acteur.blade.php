@@ -13,7 +13,6 @@
 </head>
 <body class="add-actor-body">
 @include('pages.header-admin')
-
 <main class="add-actor-page">
     <h1 class="add-actor-title">Ajouter un acteur</h1>
 
@@ -37,10 +36,9 @@
             />
 
             <input
-                type="date"
                 name="dateNaisPer"
                 class="add-actor-input"
-                required
+                placeholder="Date de naissance"
             />
 
             <input
@@ -48,7 +46,6 @@
                 name="lieuNaisPer"
                 class="add-actor-input"
                 placeholder="Lieu de naissance"
-                required
             />
         </div>
 

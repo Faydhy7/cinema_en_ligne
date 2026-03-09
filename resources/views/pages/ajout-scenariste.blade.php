@@ -36,10 +36,9 @@
             />
 
             <input
-                type="date"
                 name="dateNaisPer"
                 class="add-actor-input"
-                required
+                placeholder="Date de naissance"
             />
 
             <input

@@ -11,4 +11,9 @@ class TypeSalle extends Model{
     protected $fillable = [
         'libTypeSal',
     ];
+    public function salles()
+    {
+        return $this->hasMany(Salle::class, 'idTyp', 'idTyp');
+    }
 }
+

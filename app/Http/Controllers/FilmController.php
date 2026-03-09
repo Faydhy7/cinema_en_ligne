@@ -63,11 +63,15 @@ class FilmController extends Controller
         $langues = Langue::all();
 
         $selectedGenres = array_map('intval', $request->input('genres', []));
+        $recherche      = $request->input('rechercheCine');
 
         $query = Film::has('seances');
 
         if (!empty($selectedGenres)) {
             $query->whereIn('idGenre', $selectedGenres);
+        }
+        if (!empty($recherche)) {
+            $query->where('titreFil', 'LIKE', '%' . $recherche . '%');
         }
 
         $films = $query->get();

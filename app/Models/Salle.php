@@ -15,4 +15,10 @@ class Salle extends Model{
     public function cinema() {
         return $this->belongsTo(Cinema::class, 'idCin', 'idCin');
     }
+    public function typeSalle()
+    {
+        // Une salle appartient à un type via 'idTyp'.
+        return $this->belongsTo(TypeSalle::class, 'idTyp', 'idTyp');
+    }
+
 }

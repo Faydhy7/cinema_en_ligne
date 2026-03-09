@@ -77,7 +77,7 @@
 
                         <textarea
                             name="synopsis"
-                            class="add-actor-textarea add-film-synopsis">{{ $film->descFil }}
+                            class="add-actor-textarea add-film-synopsis">{{  $film->descFil }}
                         </textarea>
                     </div>
 
@@ -98,116 +98,94 @@
             </section>
 
 
-                        <!-- Colonne droite -->
-            <aside class="add-film-side-col">
-                <div class="add-film-side-group">
-                    <label class="add-film-side-label">Réalisateur</label>
+{{--                        <!-- Colonne droite -->--}}
+{{--                        <aside class="add-film-side-col">--}}
+{{--                            <!-- Réalisateur -->--}}
+{{--                            <div class="add-film-side-group">--}}
+{{--                                <label class="add-film-side-label">Réalisateur</label>--}}
 
-                    <div class="add-film-side-list js-repeat-list" data-type="realisateurs">
-                        @php
-                            $realisateursSelected = old('realisateurs', $film->realisateurs->pluck('idPer')->toArray());
-                            if (count($realisateursSelected) === 0) $realisateursSelected = [null];
-                        @endphp
+{{--                                <div class="add-film-side-list js-repeat-list" data-type="realisateurs">--}}
+{{--                                    <div class="add-film-side-row js-repeat-row">--}}
+{{--                                        <div class="add-film-select-wrap">--}}
+{{--                                            <select name="realisateurs[]" class="add-actor-input add-film-side-input add-film-side-input--removable">--}}
+{{--                                                <option value="" selected disabled></option>--}}
+{{--                                                <option value="1">Christopher Nolan</option>--}}
+{{--                                                <option value="2">Greta Gerwig</option>--}}
+{{--                                                <option value="3">Denis Villeneuve</option>--}}
+{{--                                            </select>--}}
 
-                        @foreach($realisateursSelected as $selectedId)
-                            <div class="add-film-side-row js-repeat-row">
-                                <div class="add-film-select-wrap">
-                                    <select name="realisateurs[]" class="add-actor-input add-film-side-input add-film-side-input--removable">
-                                        <option value="" disabled {{ $selectedId ? '' : 'selected' }}></option>
-                                        @foreach($realisateurs as $p)
-                                            <option value="{{ $p->idPer }}" {{ (int)$p->idPer === (int)$selectedId ? 'selected' : '' }}>
-                                                {{ $p->prenomPer }} {{ $p->nomPer }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+{{--                                            <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer ce réalisateur">×</button>--}}
+{{--                                        </div>--}}
 
-                                    <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer ce réalisateur">×</button>
-                                </div>
+{{--                                        <button type="button" class="add-film-mini-btn js-add-row" aria-label="Ajouter un réalisateur">+</button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <button type="button" class="add-film-mini-btn js-add-row" aria-label="Ajouter un réalisateur">+</button>
-                            </div>
-                        @endforeach
-                    </div>
+{{--                                <a href="/realisateur/ajouter" class="add-film-side-link">--}}
+{{--                                    Ajouter un nouveau réalisateur--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
 
-                    <a href="{{ route('realisateur.create') }}" class="add-film-side-link">
-                        Ajouter un nouveau réalisateur
-                    </a>
-                </div>
 
-                <div class="add-film-side-group">
-                    <p class="add-film-side-label">Acteurs</p>
 
-                    <div class="add-film-side-list js-repeat-list" data-type="acteurs">
-                        @php
-                            $acteursSelected = old('acteurs', $film->acteurs->pluck('idPer')->toArray());
-                            if (count($acteursSelected) === 0) $acteursSelected = [null];
-                        @endphp
+{{--                            <!-- Acteurs -->--}}
+{{--                            <div class="add-film-side-group">--}}
+{{--                                <p class="add-film-side-label">Acteurs</p>--}}
 
-                        @foreach($acteursSelected as $selectedId)
-                            <div class="add-film-side-row js-repeat-row">
-                                <div class="add-film-select-wrap">
-                                    <select name="acteurs[]" class="add-actor-input add-film-side-input add-film-side-input--removable">
-                                        <option value="" disabled {{ $selectedId ? '' : 'selected' }}></option>
-                                        @foreach($acteurs as $p)
-                                            <option value="{{ $p->idPer }}" {{ (int)$p->idPer === (int)$selectedId ? 'selected' : '' }}>
-                                                {{ $p->prenomPer }} {{ $p->nomPer }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+{{--                                <div class="add-film-side-list js-repeat-list" data-type="acteurs">--}}
+{{--                                    <div class="add-film-side-row js-repeat-row">--}}
+{{--                                        <div class="add-film-select-wrap">--}}
+{{--                                            <select name="acteurs[]" class="add-actor-input add-film-side-input add-film-side-input--removable">--}}
+{{--                                                <option value="" selected disabled></option>--}}
+{{--                                                <option value="1">Acteur 1</option>--}}
+{{--                                                <option value="2">Acteur 2</option>--}}
+{{--                                                <option value="3">Acteur 3</option>--}}
+{{--                                            </select>--}}
 
-                                    <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer cet acteur">×</button>
-                                </div>
+{{--                                            <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer cet acteur">×</button>--}}
+{{--                                        </div>--}}
 
-                                <button type="button" class="add-film-mini-btn js-add-row" aria-label="Ajouter un acteur à la liste">+</button>
-                            </div>
-                        @endforeach
-                    </div>
+{{--                                        <button type="button" class="add-film-mini-btn js-add-row" aria-label="Ajouter un acteur à la liste">+</button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                    <a href="{{ route('acteur.create') }}" class="add-film-side-link">
-                        Ajouter un nouvel acteur
-                    </a>
-                </div>
+{{--                                <a href="/acteur/ajouter" class="add-film-side-link">--}}
+{{--                                    Ajouter un nouvel acteur--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
 
-                <div class="add-film-side-group">
-                    <label class="add-film-side-label">Scénariste</label>
+{{--                            <!-- Scénariste -->--}}
+{{--                            <div class="add-film-side-group">--}}
+{{--                                <label class="add-film-side-label">Scénariste</label>--}}
 
-                    <div class="add-film-side-list js-repeat-list" data-type="scenaristes">
-                        @php
-                            $scenaristesSelected = old('scenaristes', $film->scenaristes->pluck('idPer')->toArray());
-                            if (count($scenaristesSelected) === 0) $scenaristesSelected = [null];
-                        @endphp
+{{--                                <div class="add-film-side-list js-repeat-list" data-type="scenaristes">--}}
+{{--                                    <div class="add-film-side-row js-repeat-row">--}}
+{{--                                        <div class="add-film-select-wrap">--}}
+{{--                                            <select name="scenaristes[]" class="add-actor-input add-film-side-input add-film-side-input--removable">--}}
+{{--                                                <option value="" selected disabled></option>--}}
+{{--                                                <option value="1">Scénariste 1</option>--}}
+{{--                                                <option value="2">Scénariste 2</option>--}}
+{{--                                                <option value="3">Scénariste 3</option>--}}
+{{--                                            </select>--}}
 
-                        @foreach($scenaristesSelected as $selectedId)
-                            <div class="add-film-side-row js-repeat-row">
-                                <div class="add-film-select-wrap">
-                                    <select name="scenaristes[]" class="add-actor-input add-film-side-input add-film-side-input--removable">
-                                        <option value="" disabled {{ $selectedId ? '' : 'selected' }}></option>
-                                        @foreach($scenaristes as $p)
-                                            <option value="{{ $p->idPer }}" {{ (int)$p->idPer === (int)$selectedId ? 'selected' : '' }}>
-                                                {{ $p->prenomPer }} {{ $p->nomPer }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+{{--                                            <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer ce scénariste">×</button>--}}
+{{--                                        </div>--}}
 
-                                    <button type="button" class="add-film-inline-remove js-remove-row" aria-label="Retirer ce scénariste">×</button>
-                                </div>
+{{--                                        <button type="button" class="add-film-mini-btn js-add-row" aria-label="Ajouter un scénariste">+</button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <button type="button" class="add-film-mini-btn js-add-row" aria-label="Ajouter un scénariste">+</button>
-                            </div>
-                        @endforeach
-                    </div>
-
-                    <a href="{{ route('scenariste.create') }}" class="add-film-side-link">
-                        Ajouter un nouveau scénariste
-                    </a>
-                </div>
-            </aside>
-                    </div>
+{{--                                <a href="/scenariste/ajouter" class="add-film-side-link">--}}
+{{--                                    Ajouter un nouveau scénariste--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </aside>--}}
+{{--                    </div>--}}
     <div class="add-actor-actions add-film-actions">
         <button type="submit" class="add-actor-submit add-film-submit">Modifier</button>
     </div>
     </form>
 </main>
-@vite('resources/js/ajout-personne.js')
+
 </body>
 </html>
