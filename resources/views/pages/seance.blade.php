@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="{{ asset('cinema-style.css') }}">
 </head>
 
+<!-- header admin si admin a ajouter  -->
 <body class="cinema-body">
 @include('pages.header')
+
 
 <div class="main-content">
 
