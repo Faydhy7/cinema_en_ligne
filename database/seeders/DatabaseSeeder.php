@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // 1. RÔLES UTILISATEURS
-        $adminRole = RoleUtilisateur::create(['libRoleUti' => 'admin']);
-        $userRole  = RoleUtilisateur::create(['libRoleUti' => 'utilisateur']);
+        // 1. RÔLES UTILISATEURS OBSOLETE
+        //$adminRole = RoleUtilisateur::create(['libRoleUti' => 'admin']);
+        //$userRole  = RoleUtilisateur::create(['libRoleUti' => 'utilisateur']);
 
         // 2. GENRES
         $g1 = Genre::create(['libGenre' => 'Action']);

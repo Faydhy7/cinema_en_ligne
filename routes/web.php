@@ -10,6 +10,7 @@ use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
 use App\Http\Controllers\CinemaController;
 use App\Http\Controllers\DeconnexionController;
+use App\Http\Controllers\ReservationController;
 
 Route::get('/connexion', function () {
     return view('pages.connexion');
@@ -28,6 +29,10 @@ Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('log
 Route::get('/seance', function () {
     return view('pages.seance');
 })->name('seance');
+
+Route::post('/seance/reservation/{seance}', [ReservationController::class, 'reservation'])
+    ->middleware('auth')
+    ->name('reservation');
 
 Route::get('/connexion_reservation', function () {
     return view('pages.connexion_reservation');
