@@ -14,15 +14,17 @@ Route::get('/connexion', function () {
     return view('pages.connexion');
 });
 Route::post('/connexion', [ConnexionController::class, 'login'])->name('login');
+Route::post('/connexion_reservation', [ConnexionController::class, 'login_reservation'])->name('login_reservation');
 
 Route::get('/inscription', function () {
     return view('pages.Inscription');
 });
-Route::post('/inscription', [InscriptionController::class, 'sign-in'])->name('sign-in');
+Route::post('/inscription', [InscriptionController::class, 'sign_in'])->name('sign_in');
+Route::post('/inscription_reservation', [InscriptionController::class, 'sign_in_reservation'])->name('sign_in_reservation');
 
 Route::get('/seance', function () {
     return view('pages.seance');
-});
+})->name('seance');
 
 Route::get('/connexion_reservation', function () {
     return view('pages.connexion_reservation');
