@@ -11,17 +11,17 @@
 
 <div class="container">
     <a href="/">
-        <img src="{{ asset('images/logo_CineForAll.png') }}"
-             width="289.5"
-             height="260.5">
+            <img src="{{ asset('images/logo_CineForAll.png') }}"
+                 width="289.5"
+                 height="260.5">
     </a>
 
     <div class="form-section">
         <div class="form-card">
             <h1>Inscription</h1>
 
-            <form method="POST" action="{{ route('sign-in') }}">
-                @csrf
+            <form method="POST" action="{{ route('sign_in') }}">
+            @csrf
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur:</label>
                     <input type="text" id="username" name="username" required  class="@error('username') input-error @enderror">
@@ -42,6 +42,10 @@
                         {{ $message }}
                     </div>
                     @enderror
+                </div>
+
+                <div>
+                    <input type="checkbox" name="remember"> Se souvenir de moi
                 </div>
 
                 <button type="submit" class="submit-btn">S'inscrire</button>

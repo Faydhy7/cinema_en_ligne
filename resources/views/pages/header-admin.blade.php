@@ -19,7 +19,7 @@
 
         <nav>
             <a href="{{ route('films.admin.cinema') }}">Films au cinéma</a>
-            <a href="#">Cinémas</a>
+            <a href="/seance">Cinémas</a>
             <a href="{{ route('films.admin.index') }}">Tous les films</a>
             <div class="gestion-dropdown">
                 <a href="/gestion-films" id="gestionLink" class="gestion-link">
@@ -56,7 +56,8 @@
     <div class="popup">
         @auth
         <h2>Mon compte</h2>
-            <form method="POST" action="#" style="margin-top:10px;">
+            <form method="POST" action="{{ route('logout') }}" style="margin-top:10px;">
+                @csrf
                 <button type="submit" class="popup-btn btn-logout">
                     Se déconnecter
                 </button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Film;
 use App\Models\Genre;
 use App\Models\Langue;
@@ -38,6 +39,10 @@ class FilmController extends Controller
 
         $films = $query->get();
 
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return view('pages.Tous_films-admin', compact('films', 'genres', 'selectedGenres'));
+        }
+
         return view('pages.Tous_films', compact('films', 'genres', 'selectedGenres'));
     }
 
@@ -52,6 +57,10 @@ class FilmController extends Controller
             ->orderBy('dateSortie', 'asc')
             ->take(6)
             ->get();
+
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return view('pages.accueil-admin', compact('filmsAuCinema', 'filmsProchainement'));
+        }
         return view('pages.accueil', compact('filmsAuCinema', 'filmsProchainement'));
     }
 
@@ -76,6 +85,9 @@ class FilmController extends Controller
 
         $films = $query->get();
 
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return view('pages.actuellement-au-cinema-admin', compact('films', 'genres', 'selectedGenres', 'type_salles', 'langues'));
+        }
         return view('pages.actuellement-au-cinema', compact('films', 'genres', 'selectedGenres', 'type_salles', 'langues'));
     }
 
@@ -83,6 +95,9 @@ class FilmController extends Controller
     {
         $film->load('genre');
 
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return view('pages.film', compact('film'));
+        }
         return view('pages.film', compact('film'));
     }
 
