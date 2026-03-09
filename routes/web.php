@@ -22,6 +22,8 @@ Route::get('/inscription', function () {
 Route::post('/inscription', [InscriptionController::class, 'sign_in'])->name('sign_in');
 Route::post('/inscription_reservation', [InscriptionController::class, 'sign_in_reservation'])->name('sign_in_reservation');
 
+Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('logout');
+
 Route::get('/seance', function () {
     return view('pages.seance');
 })->name('seance');
