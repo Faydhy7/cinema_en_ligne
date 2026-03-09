@@ -30,17 +30,9 @@ Route::post('/inscription_reservation', [InscriptionController::class, 'sign_in_
 
 Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('logout');
 
-/*Route::get('/seance', function () {
-    return view('pages.seance');
-})->name('seance');*/
-
 Route::post('/seance/reservation/{seance}', [ReservationController::class, 'reservation'])
     //->middleware('auth')
     ->name('reservation');
-
-/*Route::get('/connexion_reservation', function () {
-    return view('pages.connexion_reservation');
-});*/
 
 Route::get('/gestion-acteur', function () {
     return view('pages.gestion-acteur');
@@ -61,10 +53,6 @@ Route::get('/gestion-cinema', function () {
 Route::get('/gestion-programmation', function () {
     return view('pages.gestion-programmation');
 });
-
-/*Route::get('/inscription_reservation', function () {
-    return view('pages.inscription_reservation');
-});*/
 
 Route::get('/ajout-cinema', function () {
     return view('pages.ajout-cinema');
