@@ -9,6 +9,7 @@ use App\Http\Controllers\RealisateurController;
 use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
 use App\Http\Controllers\CinemaController;
+use App\Http\Controllers\DeconnexionController;
 
 Route::get('/connexion', function () {
     return view('pages.connexion');
