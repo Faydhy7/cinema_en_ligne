@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Langue;
+use App\Models\TypeSalle;
 use Illuminate\Http\Request;
 use App\Models\Film;
 use App\Models\Genre;
 use App\Models\Personne;
 use Carbon\Carbon;
+
 
 class FilmAdminController extends Controller
 {
@@ -263,6 +266,9 @@ class FilmAdminController extends Controller
     {
 
         $genres = Genre::orderBy('libGenre')->get();
+        $langues = Langue::all();
+        $type_salles = TypeSalle::all();
+
 
         $selectedGenres = array_map('intval', $request->input('genres', []));
 
@@ -274,7 +280,7 @@ class FilmAdminController extends Controller
 
         $films = $query->get();
 
-        return view('pages.actuellement-au-cinema-admin', compact('films', 'genres', 'selectedGenres'));
+        return view('pages.actuellement-au-cinema-admin', compact('films', 'genres', 'selectedGenres', 'langues', 'type_salles'));
     }
 
     public function ajoutProgramme(Request $request)

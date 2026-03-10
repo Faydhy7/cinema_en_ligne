@@ -42,20 +42,4 @@ class CinemaController extends Controller
 
         return view('pages.seance', compact('cinema', 'tousCinemas', 'films', 'tarifs', 'typesSalles'));
     }
-
-    public function create()
-    {
-        return view('pages.ajout-cinema');
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nomCin' => 'required|unique:cinema,nomCin',
-            'adresse' => 'required',
-            'ville' => 'required',
-            'codePostal' => 'required|numeric',
-
-        ]);
-    }
 }

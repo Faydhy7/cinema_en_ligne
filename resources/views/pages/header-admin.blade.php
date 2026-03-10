@@ -55,7 +55,7 @@
 <div class="popup-overlay" id="popupOverlay">
     <div class="popup">
         @auth
-        <h2>Mon compte</h2>
+            <h2>Mon compte</h2>
             <form method="POST" action="{{ route('logout') }}" style="margin-top:10px;">
                 @csrf
                 <button type="submit" class="popup-btn btn-logout">
@@ -67,5 +67,6 @@
 </div>
 @vite('resources/js/popup-gestion.js')
 @vite('resources/js/popup_connexion.js')
+@vite('resources/js/loupe-recherche.js')
 </body>
 </html>

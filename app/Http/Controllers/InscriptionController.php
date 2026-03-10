@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-
 use App\Models\Reservation;
+
 class InscriptionController extends Controller {
     public function showLogin()
     {
@@ -60,7 +60,6 @@ class InscriptionController extends Controller {
         $remember = $request->has('remember');
         Auth::login($user, $remember);
         $request->session()->regenerate();
-
         $cinema = \App\Models\Cinema::inRandomOrder()->first();
 
         if(Session::has('reservation_seance')) {

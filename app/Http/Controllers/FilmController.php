@@ -49,6 +49,7 @@ class FilmController extends Controller
 
     //Contrôle les films qui s'affiche dans la page d'accueil
     public function filmsAccueil(){
+        $recherche = $request->input('recherche');
         $filmsAuCinema = Film::where('dateSortie', '<=', now())
             ->orderBy('dateSortie', 'desc') // Les plus récents en premier
             ->take(6)
@@ -57,11 +58,17 @@ class FilmController extends Controller
             ->orderBy('dateSortie', 'asc')
             ->take(6)
             ->get();
+        $query = Film::has('seances');
+
+        if (!empty($recherche)) {
+            $filmsRecherche = Film::where('titreFil', 'LIKE', '%' . $recherche . '%')->get();
+        }
 
         if (auth()->check() && auth()->user()->role === 'admin') {
             return view('pages.accueil-admin', compact('filmsAuCinema', 'filmsProchainement'));
         }
-        return view('pages.accueil', compact('filmsAuCinema', 'filmsProchainement'));
+
+        return view('pages.accueil', compact('filmsAuCinema', 'filmsProchainement',));
     }
 
 
@@ -72,11 +79,15 @@ class FilmController extends Controller
         $langues = Langue::all();
 
         $selectedGenres = array_map('intval', $request->input('genres', []));
+        $recherche  = $request->input('rechercheCine');
 
         $query = Film::has('seances');
 
         if (!empty($selectedGenres)) {
             $query->whereIn('idGenre', $selectedGenres);
+        }
+        if (!empty($recherche)) {
+            $query->where('titreFil', 'LIKE', '%' . $recherche . '%');
         }
 
         $films = $query->get();

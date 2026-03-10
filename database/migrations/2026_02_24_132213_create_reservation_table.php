@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id('idRes');
             $table->foreignId('idUser')->constrained('users');
             $table->foreignId('idSea')->constrained('Seance');
-
             $table->timestamps();
-
         });
     }
 

@@ -17,17 +17,22 @@
     <h1 class="page-title">Actuellement au cinéma</h1>
 
     <div class="search-section">
-        <div class="search-container">
-            <img src="{{ asset('images/loupe.png') }}"
-                 width="35"
-                 height="35"
-            >
-            <input type="text" placeholder="Choisissez un film actuellement au cinéma">
-        </div>
-        <button class="filter-btn" id="openFilters" type="button">
-            <span class="filter-icon">≡</span>
-            Filtres
-        </button>
+        <form action="{{ route('films.cinema') }}" method="GET" class="search-section" style="width: 100%; display: flex; align-items: center;">
+            <div class="search-container" style="flex-grow: 1;">
+                <img src="{{ asset('images/loupe.png') }}" width="35" height="35">
+                <input type="text"
+                       name="rechercheCine"
+                       placeholder="Chercher un film..."
+                       value="{{ request('rechercheCine') }}"
+                       style="width: 100%; border: none; outline: none; background: transparent;">
+            </div>
+
+            <button class="filter-btn" id="openFilters" type="button">
+                <span class="filter-icon">≡</span> Filtres
+            </button>
+
+            <button type="submit" style="display: none;"></button>
+        </form>
         <!-- POPUP FILTRES (Actuellement au cinéma) -->
         <div class="filters-overlay" id="filtersOverlay" aria-hidden="true">
             <div class="filters-panel filters-panel--big" role="dialog" aria-modal="true" aria-labelledby="filtersTitle">
@@ -41,8 +46,13 @@
                 <div class="filters-block">
                     <div class="filters-block-title">Version</div>
                     <div class="genre-pills">
-                        <button type="button" class="pill" data-filter="version" data-value="VF">VF</button>
-                        <button type="button" class="pill" data-filter="version" data-value="VOST">VOST</button>
+                        @foreach($langues as $langue)
+                            <button type="button" class="pill"
+                                    data-filter="version"
+                                    data-value="{{$langue->langSea}}">
+                                {{$langue->langSea}}
+                            </button>
+                        @endforeach
                     </div>
                 </div>
 
@@ -50,10 +60,13 @@
                 <div class="filters-block">
                     <div class="filters-block-title">Type de salle</div>
                     <div class="genre-pills">
-                        <button type="button" class="pill" data-filter="room" data-value="Classique">Classique</button>
-                        <button type="button" class="pill" data-filter="room" data-value="Dolby cinéma">Dolby cinéma</button>
-                        <button type="button" class="pill" data-filter="room" data-value="IMAX">IMAX</button>
-                        <button type="button" class="pill" data-filter="room" data-value="4DX">4DX</button>
+                        @foreach($type_salles as $type_salle)
+                            <button type="button" class="pill"
+                                    data-filter="salle"
+                                    data-value="{{ $type_salle->libTypSal }}">
+                                {{ $type_salle->libTypSal }}
+                            </button>
+                        @endforeach
                     </div>
                 </div>
 
@@ -85,7 +98,7 @@
     <div class="movies-grid-6">
         @foreach($films as $film)
             <div class="movie-card">
-                <a href="{{ route('films.admin.show', $film->idFil) }}" class="movie-poster-link">
+                <a href="{{ route('films.show', $film->idFil) }}" class="movie-poster-link">
                     <div class="movie-poster">
                         <img src="{{ asset('images/' . $film->imgFil) }}" alt="{{ $film->titreFil }}">
                     </div>

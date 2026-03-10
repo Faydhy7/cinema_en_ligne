@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="{{ asset('cinema-style.css') }}">
 </head>
 
+<!-- header admin si admin a ajouter  -->
 <body class="cinema-body">
 @include('pages.header')
+
 
 <div class="main-content">
 
@@ -80,7 +82,7 @@
                             <form action="{{ route('reservation', $seance->idSea) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="time-card">
-                                    <div class="time-card-top">
+                                <div class="time-card-top">
                                     <span class="time-badge">
                                         @if(in_array($typSal, ['IMAX', '4DX', 'Dolby Cinéma']))
                                             {{ $typSal }}

@@ -40,8 +40,6 @@ class ConnexionController extends Controller {
 
     public function login_reservation(Request $request)
     {
-        //dd("Connexion OK");
-
         $request->validate([
             'username' => 'required',
             'password' => 'required'
@@ -50,7 +48,6 @@ class ConnexionController extends Controller {
         $credentials = $request->only('username', 'password');
         $remember = $request->has('remember');
 
-        //dd(Auth::attempt($credentials));
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             $cinema = \App\Models\Cinema::inRandomOrder()->first();
@@ -71,6 +68,7 @@ class ConnexionController extends Controller {
         ]);
 
     }
+
     public function showLoginForm(Request $request)
     {
         $seance = null;
@@ -80,4 +78,6 @@ class ConnexionController extends Controller {
 
         return view('pages.connexion_reservation', compact('seance'));
     }
+
+
 }

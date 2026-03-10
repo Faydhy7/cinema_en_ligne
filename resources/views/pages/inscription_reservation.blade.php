@@ -25,29 +25,59 @@
         </a>
 
         @if($seance)
-            <div class="booking-card">
-                <div class="booking-poster">
-                    <img src="{{asset('images/'.$seance->film->imgFil)}}">
-                </div>
-
-                <div class="booking-info">
-                    <p><strong>Film :</strong> {{$seance->film->titreFil}} <span class="booking-badge"> {{$seance->typeSeance->libTypeSea}} </span></p>
-                    <p><strong>Salle :</strong> {{$seance->salle->numSal}} </p>
-                    <p><strong>Horaire :</strong> {{\Carbon\Carbon::parse($seance->dateHeurSea)->format('H\hi - d/m')}} </p>
-                </div>
+        <div class="booking-card">
+            <div class="booking-poster">
+                <img src="{{asset('images/'.$seance->film->imgFil)}}">
             </div>
+
+            <div class="booking-info">
+                <p><strong>Film :</strong> {{$seance->film->titreFil}} <span class="booking-badge"> {{$seance->typeSeance->libTypeSea}} </span></p>
+                <p><strong>Salle :</strong> {{$seance->salle->numSal}} </p>
+                <p><strong>Horaire :</strong> {{\Carbon\Carbon::parse($seance->dateHeurSea)->format('H\hi - d/m')}} </p>
+            </div>
+        </div>
         @endif
     </div>
 
     <!-- DROITE : formulaire -->
-    @@ -65,7 +74,7 @@
-    </form>
+    <div class="form-section">
+        <div class="form-card">
+            <h1>Inscription</h1>
 
-    <div class="login-link">
-        Déjà inscrit ? <a href="{{ route('login_reservationPOST', ['seance' => $seance->idSea ?? null]) }}">Se connecter ici</a>
+            <form method="POST" action="{{ route('sign_in_reservation') }}">
+                @csrf
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur:</label>
+                    <input type="text" id="username" name="username" required class="@error('username') input-error @enderror">
+                    @error('username')
+                    <div class="error-message">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe:</label>
+                    <input type="password" id="password" name="password" required class="@error('password') input-error @enderror">
+                    @error('password')
+                    <div class="error-message">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div>
+                    <input type="checkbox" name="remember"> Se souvenir de moi
+                </div>
+
+                <button type="submit" class="submit-btn">S'inscrire</button>
+            </form>
+
+            <div class="login-link">
+                Déjà inscrit ? <a href="{{ route('login_reservationPOST', ['seance' => $seance->idSea ?? null]) }}">Se connecter ici</a>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 
 </div>
 </body>

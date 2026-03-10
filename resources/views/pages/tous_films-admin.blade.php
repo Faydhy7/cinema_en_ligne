@@ -103,4 +103,3 @@
 @vite('resources/js/filtres_tous_films.js')
 </body>
 </html>
-

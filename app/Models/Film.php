@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Personne;
 
+/**
+ * @method static has(string $string)
+ */
 class Film extends Model{
     protected $table = 'film';
     protected $primaryKey = 'idFil';
@@ -21,29 +23,32 @@ class Film extends Model{
     {
         return $this->belongsTo(Genre::class, 'idGenre', 'idGenre');
     }
-
-    public function personnes()
+    public function seances() {
+        return $this->hasMany(Seance::class, 'idFil', 'idFil');
+    }
+    public function realisateurs()
     {
-        return $this->belongsToMany(\App\Models\Personne::class, 'participe', 'idFil', 'idPer')
+        return $this->belongsToMany(Personne::class, 'participe', 'idFil', 'idPer')
+            ->whereHas('roles', function($q) {
+                $q->where('libRolePer', 'Réalisateur');
+            })
             ->withPivot('idRolePer');
     }
 
-    public function acteurs()
+    public function acteursPrincipaux()
     {
-        return $this->personnes()->wherePivot('idRolePer', 1);
+        return $this->belongsToMany(Personne::class, 'participe', 'idFil', 'idPer')
+            ->whereHas('roles', function($q) {
+                $q->where('libRolePer', 'Acteur principal');
+            })
+            ->withPivot('idRolePer');
     }
-
-    public function realisateurs()
-    {
-        return $this->personnes()->wherePivot('idRolePer', 2);
-    }
-
     public function scenaristes()
     {
-        return $this->personnes()->wherePivot('idRolePer', 3);
-    }
-
-    public function seances() {
-        return $this->hasMany(Seance::class, 'idFil', 'idFil');
+        return $this->belongsToMany(Personne::class, 'participe', 'idFil', 'idPer')
+            ->whereHas('roles', function ($q) {
+                $q->where('libRolePer', 'Scenariste');
+            })
+            ->withPivot('idRolePer');
     }
 }

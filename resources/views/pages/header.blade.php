@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('Header-style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
-
 <body>
 <header>
     <div class="header-left">
@@ -61,5 +60,6 @@
     </div>
 </div>
 @vite('resources/js/popup_connexion.js')
+@vite('resources/js/loupe-recherche.js')
 </body>
 </html>

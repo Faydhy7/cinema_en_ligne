@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('idPer')->constrained('personne', 'idPer');
             $table->foreignId('idRolePer')->constrained('role_personne', 'idRolePer');
             $table->foreignId('idFil')->constrained('film', 'idFil');
+            $table->timestamps();
         });
     }
 

@@ -38,6 +38,7 @@
         @endif
     </div>
 
+
     <!-- DROITE : formulaire -->
     <div class="form-section">
         <div class="form-card">
@@ -63,8 +64,7 @@
             </form>
 
             <div class="login-link">
-                Pas encore inscrit ? <a href="{{ route('inscription_reservation',
-                ['seance' => $seance->idSea ?? null]) }}">S'inscrire ici</a>
+                Pas encore inscrit ? <a href="{{ route('inscription_reservation', ['seance' => $seance->idSea ?? null]) }}">S'inscrire ici</a>
             </div>
         </div>
     </div>

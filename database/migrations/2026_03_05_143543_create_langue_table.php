@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_personne', function (Blueprint $table) {
-            $table->id('idRolePer');
-            $table->String('libRolePer');
+        Schema::create('langue', function (Blueprint $table) {
+            $table->bigIncrements('idLangue');
+            $table->string('LangueSea');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('role_personne');
+        Schema::dropIfExists('langue');
     }
 };
