@@ -11,7 +11,7 @@ class ScenaristeController extends Controller
 {
     public function index()
     {
-        $scenaristes = Personne::whereHas('roles', function ($q) {
+        $scenaristes = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Scenariste');
         })->get();
 
@@ -57,7 +57,7 @@ class ScenaristeController extends Controller
 
     public function show($id)
     {
-        $scenariste = Personne::whereHas('roles', function ($q) {
+        $scenariste = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Scenariste');
         })->findOrFail($id);
 
@@ -69,7 +69,7 @@ class ScenaristeController extends Controller
 
     public function edit($id)
     {
-        $scenaristes = Personne::whereHas('roles', function ($q) {
+        $scenaristes = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Scenariste');
         })->findOrFail($id);
 

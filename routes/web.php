@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\RechercheController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ConnexionController;
@@ -9,8 +8,8 @@ use App\Http\Controllers\ActeurController;
 use App\Http\Controllers\RealisateurController;
 use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
-use App\Http\Controllers\CinemaController;
 use App\Http\Controllers\DeconnexionController;
+use App\Http\Controllers\CinemaController;
 use App\Http\Controllers\ReservationController;
 
 Route::get('/connexion', function () {
@@ -25,15 +24,18 @@ Route::get('/inscription', function () {
     return view('pages.Inscription');
 });
 Route::post('/inscription', [InscriptionController::class, 'sign_in'])->name('sign_in');
-
 Route::get('/inscription_reservation', [InscriptionController::class, 'showRegistrationForm'])->name('inscription_reservation');
 Route::post('/inscription_reservation', [InscriptionController::class, 'sign_in_reservation'])->name('sign_in_reservation');
 
 Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('logout');
 
 Route::post('/seance/reservation/{seance}', [ReservationController::class, 'reservation'])
-    //->middleware('auth')
+//    ->middleware('auth')
     ->name('reservation');
+
+//Route::get('/connexion_reservation', function () {
+//    return view('pages.connexion_reservation');
+//});
 
 Route::get('/gestion-acteur', function () {
     return view('pages.gestion-acteur');
@@ -55,10 +57,6 @@ Route::get('/gestion-programmation', function () {
     return view('pages.gestion-programmation');
 });
 
-Route::get('/ajout-cinema', function () {
-    return view('pages.ajout-cinema');
-});
-
 Route::get('/reservation', function () {
     return view('pages.reservation');
 });
@@ -72,6 +70,12 @@ Route::get('/actuellement-au-cinema', [FilmController::class, 'filmsAuCinema'])-
 Route::get('/films/{film}', [FilmController::class, 'show'])->name('films.show');
 
 Route::get('/', [FilmController::class, 'filmsAccueil'])->name('accueil');
+
+Route::get('/acteur-simple/{id}', [FilmController::class, 'acteurdetail'])->name('acteur.simple.show');
+
+Route::get('/realisateur-simple/{id}', [FilmController::class, 'realisateurdetail'])->name('realisateur.simple.show');
+
+
 
 
 //Admin
@@ -153,5 +157,3 @@ Route::get('/seance', function () {
 //page seance et redirection vers un film aleatoire
 Route::get('/seance/{cinema}', [CinemaController::class, 'show'])->name('seance.show');
 
-// Loupe de recherche
-Route::get('/recherche', [RechercheController::class, 'index'])->name('recherche');

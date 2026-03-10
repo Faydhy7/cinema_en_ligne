@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Récupère la grande zone qui contient le fond gris + le vrai menu popup
 
     if (!userBtn || !popupOverlay) return;
-    // Sécurité : si l'un des deux éléments n'existe pas sur la page → on arrête tout de suite
+    // Sécurité : si l'un des deux éléments n'existe pas sur la page, on arrête tout de suite
 
     userBtn.addEventListener('click', () => {
         // Quand on clique sur le bouton utilisateur

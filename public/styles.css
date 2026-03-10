@@ -591,6 +591,18 @@ body {
     line-height: 1.2;
 }
 
+.film-detail-meta a,
+.film-detail-meta a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.film-detail-meta a:hover,
+.film-detail-meta a:focus {
+    color: #991917;
+    text-decoration: none;
+}
+
 /* Style pour "Sortie :", "De", etc. */
 .meta-label {
     color: #94a3b8; /* Gris clair pour contraster avec la valeur blanche */
