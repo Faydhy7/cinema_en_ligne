@@ -30,7 +30,7 @@ Route::post('/inscription_reservation', [InscriptionController::class, 'sign_in_
 Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('logout');
 
 Route::post('/seance/reservation/{seance}', [ReservationController::class, 'reservation'])
-//    ->middleware('auth')
+    //->middleware('auth')
     ->name('reservation');
 
 //Route::get('/connexion_reservation', function () {
