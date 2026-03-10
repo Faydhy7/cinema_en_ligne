@@ -12,7 +12,7 @@ class ActeurController extends Controller
 {
     public function index()
     {
-        $acteurs = Personne::whereHas('roles', function ($q) {
+        $acteurs = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Acteur principal');
         })->get();
 
@@ -42,12 +42,11 @@ class ActeurController extends Controller
         $acteur->lieuNaisPer = $validated['lieuNaisPer'];
         $acteur->save();
 
-        // Lier le rôle "Acteur principal" via la table participe
         $role = RolePersonne::where('libRolePer', 'Acteur principal')->first();
         if ($role) {
             Participe::create([
                 'idPer'      => $acteur->idPer,
-                'idFil'      => 1, // Film par défaut, à adapter selon votre logique
+                'idFil'      => 1,
                 'idRolePer'  => $role->idRolePer,
             ]);
         }
@@ -59,11 +58,11 @@ class ActeurController extends Controller
 
     public function show($id)
     {
-        $acteur = Personne::whereHas('roles', function ($q) {
+        $acteur = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Acteur principal');
         })->findOrFail($id);
 
-        return view('pages.personne-detail', [
+        return view('pages.personne-detail-admin', [
             'personne' => $acteur,
             'role'     => 'acteur',
         ]);
@@ -71,7 +70,7 @@ class ActeurController extends Controller
 
     public function edit($id)
     {
-        $acteur = Personne::whereHas('roles', function ($q) {
+        $acteur = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Acteur principal');
         })->findOrFail($id);
 

@@ -11,7 +11,7 @@ class RealisateurController extends Controller
 {
     public function index()
     {
-        $realisateurs = Personne::whereHas('roles', function ($q) {
+        $realisateurs = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Realisateur');
         })->get();
 
@@ -57,11 +57,11 @@ class RealisateurController extends Controller
 
     public function show($id)
     {
-        $realisateur = Personne::whereHas('roles', function ($q) {
+        $realisateur = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Realisateur');
         })->findOrFail($id);
 
-        return view('pages.personne-detail', [
+        return view('pages.personne-detail-admin', [
             'personne' => $realisateur,
             'role'     => 'realisateur',
         ]);
@@ -69,7 +69,7 @@ class RealisateurController extends Controller
 
     public function edit($id)
     {
-        $realisateur = Personne::whereHas('roles', function ($q) {
+        $realisateur = Personne::whereHas('rolepersonne', function ($q) {
             $q->where('libRolePer', 'Realisateur');
         })->findOrFail($id);
 

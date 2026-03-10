@@ -66,9 +66,29 @@ class FilmAdminController extends Controller
     public function create()
     {
         $genres = Genre::orderBy('libGenre')->get();
-        $acteurs = Personne::where('idRolePer', 1)->orderBy('nomPer')->orderBy('prenomPer')->get();
-        $realisateurs = Personne::where('idRolePer', 2)->orderBy('nomPer')->orderBy('prenomPer')->get();
-        $scenaristes = Personne::where('idRolePer', 3)->orderBy('nomPer')->orderBy('prenomPer')->get();
+        $acteurs = Personne::join('participe', 'personne.idPer', '=', 'participe.idPer')
+            ->where('participe.idRolePer', 1)
+            ->select('personne.*')
+            ->distinct()
+            ->orderBy('nomPer')
+            ->orderBy('prenomPer')
+            ->get();
+
+        $realisateurs = Personne::join('participe', 'personne.idPer', '=', 'participe.idPer')
+            ->where('participe.idRolePer', 2)
+            ->select('personne.*')
+            ->distinct()
+            ->orderBy('nomPer')
+            ->orderBy('prenomPer')
+            ->get();
+
+        $scenaristes = Personne::join('participe', 'personne.idPer', '=', 'participe.idPer')
+            ->where('participe.idRolePer', 3)
+            ->select('personne.*')
+            ->distinct()
+            ->orderBy('nomPer')
+            ->orderBy('prenomPer')
+            ->get();
 
 
         return view('pages.ajout-film', compact('genres', 'acteurs', 'realisateurs', 'scenaristes'));
@@ -144,10 +164,29 @@ class FilmAdminController extends Controller
     {
         $film = Film::with(['acteurs', 'realisateurs', 'scenaristes'])->find($id);
         $genres = Genre::all();
-        $acteurs = Personne::where('idRolePer', 1)->orderBy('nomPer')->orderBy('prenomPer')->get();
-        $realisateurs = Personne::where('idRolePer', 2)->orderBy('nomPer')->orderBy('prenomPer')->get();
-        $scenaristes = Personne::where('idRolePer', 3)->orderBy('nomPer')->orderBy('prenomPer')->get();
+        $acteurs = Personne::join('participe', 'personne.idPer', '=', 'participe.idPer')
+            ->where('participe.idRolePer', 2)
+            ->select('personne.*')
+            ->distinct()
+            ->orderBy('nomPer')
+            ->orderBy('prenomPer')
+            ->get();
 
+        $realisateurs = Personne::join('participe', 'personne.idPer', '=', 'participe.idPer')
+            ->where('participe.idRolePer', 1)
+            ->select('personne.*')
+            ->distinct()
+            ->orderBy('nomPer')
+            ->orderBy('prenomPer')
+            ->get();
+
+        $scenaristes = Personne::join('participe', 'personne.idPer', '=', 'participe.idPer')
+            ->where('participe.idRolePer', 3)
+            ->select('personne.*')
+            ->distinct()
+            ->orderBy('nomPer')
+            ->orderBy('prenomPer')
+            ->get();
         return view('pages.edit-film', compact('film', 'genres', 'acteurs', 'realisateurs', 'scenaristes'));
     }
 

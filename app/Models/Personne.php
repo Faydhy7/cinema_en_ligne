@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Personne extends Model{
+class Personne extends Model
+{
     protected $table = 'personne';
     protected $primaryKey = 'idPer';
     public $timestamps = false;
@@ -13,11 +14,14 @@ class Personne extends Model{
         'prenomPer',
         'bioPer',
         'dateNaisPer',
+        'agePer',
         'lieuNaisPer',
+        'idRolePer',
         'imgPer'
     ];
-    public function roles()
+
+    public function rolepersonne()
     {
-        return $this->belongsToMany(RolePersonne::class, 'participe', 'idPer', 'idRolePer');
+        return $this->belongsToMany(RolePersonne::class, 'participe','idPer', 'idRolePer');
     }
 }

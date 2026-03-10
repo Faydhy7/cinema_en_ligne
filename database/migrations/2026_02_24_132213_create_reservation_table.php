@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('reservation', function (Blueprint $table) {
             $table->id('idRes');
-            $table->integer('prixTar');
-            $table->date('dateRes');
-            //$table->foreignId('idUti')->constrained('utilissateurs', 'idUti');
+            $table->foreignId('idUser')->constrained('users');
+            $table->foreignId('idSea')->constrained('Seance');
+
             $table->timestamps();
-            $table->foreignId('id')->constrained('users', 'id');
+
         });
     }
 
