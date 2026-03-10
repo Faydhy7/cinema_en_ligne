@@ -12,7 +12,12 @@ class Salle extends Model{
         'numSal',
         'nbPlace'
     ];
+
     public function cinema() {
         return $this->belongsTo(Cinema::class, 'idCin', 'idCin');
+    }
+
+    public function typeSalle() {
+        return $this->belongsTo(TypeSalle::class, 'idTyp', 'idTyp');
     }
 }

@@ -97,4 +97,28 @@ class FilmController extends Controller
         return view('pages.film', compact('film'));
     }
 
+    public function acteurdetail($id)
+    {
+        $acteur = Personne::whereHas('rolepersonne', function ($q) {
+            $q->where('libRolePer', 'Acteur principal');
+        })->findOrFail($id);
+
+        return view('pages.personne-detail', [
+            'personne' => $acteur,
+            'role'     => 'acteur',
+        ]);
+    }
+
+    public function realisateurdetail($id)
+    {
+        $realisateur = Personne::whereHas('rolepersonne', function ($q) {
+            $q->where('libRolePer', 'Realisateur');
+        })->findOrFail($id);
+
+        return view('pages.personne-detail', [
+            'personne' => $realisateur,
+            'role'     => 'realisateur',
+        ]);
+    }
+
 }

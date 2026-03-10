@@ -1,65 +1,93 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Attend que toute la page HTML soit complètement chargée avant de lancer le script
 
-    // On récupère les éléments utiles
-    const tariffs = document.querySelector('.reservation-tariffs');
-    const placesLines = document.getElementById('placesLines');
-    const totalValue = document.getElementById('totalValue');
+    const openBtn = document.getElementById('openFilters');
+    // Récupère le bouton qui sert à ouvrir la fenêtre des filtres
 
-    // Sécurité : si un élément manque, on stop
-    if (!tariffs || !placesLines || !totalValue) return;
+    const overlay = document.getElementById('filtersOverlay');
+    // Récupère la grande zone qui contient le fond gris + la fenêtre des filtres
 
-    function euros(cents) {
-        // Convertit des centimes en texte "xx.xx€"
-        return (cents / 100).toFixed(2) + '€';
-    }
+    const closeBtn = document.getElementById('closeFilters');
+    // Récupère le bouton qui permet de fermer la fenêtre des filtres
 
-    function refresh() {
-        // Met à jour : inputs hidden, bouton -, lignes récap, total
-        let total = 0;
-        const lines = [];
+    if (!openBtn || !overlay || !closeBtn) return;
+    // Sécurité : si un des éléments n’existe pas sur la page, on arrête le script
 
-        tariffs.querySelectorAll('.reservation-tariff-row').forEach(function (row) {
-            const price = parseInt(row.dataset.price || '0', 10);
-            const name = row.querySelector('.reservation-tariff-name')?.textContent.trim() || 'Tarif';
-            const qtyEl = row.querySelector('[data-qty]') || row.querySelector('.reservation-qty');
-            const hidden = row.querySelector('input[type="hidden"]');
-            const minus = row.querySelector('.reservation-qty-btn[data-action="minus"]');
+    const open = () => {
+        // Fonction qui ouvre la fenêtre des filtres
 
-            if (!qtyEl) return;
+        overlay.classList.add('active');
+        // Ajoute la classe "active" pour rendre la fenêtre visible
 
-            const qty = parseInt(qtyEl.textContent || '0', 10) || 0;
+    };
 
-            if (hidden) hidden.value = qty;
-            if (minus) minus.disabled = qty <= 0;
+    const close = () => {
+        // Fonction qui ferme la fenêtre des filtres
 
-            total += qty * price;
-            if (qty > 0) lines.push(qty + ' - ' + name);
-        });
+        overlay.classList.remove('active');
+        // Retire la classe "active" pour masquer la fenêtre
 
-        placesLines.innerHTML = lines.length ? lines.join('<br>') : '0';
-        totalValue.textContent = euros(total);
-    }
+    };
 
-    document.addEventListener('click', function (event) {
-        // On capte les clics sur +/-
-        const btn = event.target.closest('.reservation-qty-btn');
-        if (!btn) return;
+    openBtn.onclick = open;
+    // Quand on clique sur le bouton "Filtres", on ouvre la fenêtre
 
-        const row = btn.closest('.reservation-tariff-row');
-        if (!row) return;
+    closeBtn.onclick = close;
+    // Quand on clique sur le bouton de fermeture, on ferme la fenêtre
 
-        const qtyEl = row.querySelector('[data-qty]') || row.querySelector('.reservation-qty');
-        if (!qtyEl) return;
+    overlay.onclick = function (e) {
+        // Écoute les clics dans toute la zone de l’overlay
 
-        let qty = parseInt(qtyEl.textContent || '0', 10) || 0;
+        if (e.target === overlay) {
+            // Vérifie si on a cliqué exactement sur le fond gris, et pas sur la fenêtre elle-même
 
-        if (btn.dataset.action === 'minus') qty = Math.max(0, qty - 1);
-        if (btn.dataset.action === 'plus') qty = qty + 1;
+            close();
+            // Si oui, ferme la fenêtre
+        }
+    };
 
-        qtyEl.textContent = qty;
-        refresh();
+    overlay.querySelectorAll('.pill').forEach(function (pill) {
+        // Récupère toutes les pastilles de filtres présentes dans la fenêtre
+
+        pill.onclick = function () {
+            // Quand on clique sur une pastille
+
+            pill.classList.toggle('pill-active');
+            // Ajoute ou retire la classe "pill-active" pour sélectionner ou désélectionner la pastille
+        };
     });
 
-    // Init
-    refresh();
+    document.getElementById('resetFilters')?.addEventListener('click', function () {
+        // Écoute le clic sur le bouton "Réinitialiser" s’il existe
+
+        overlay.querySelectorAll('.pill').forEach(function (pill) {
+            // Parcourt toutes les pastilles de filtres
+
+            pill.classList.remove('pill-active');
+            // Retire la classe "pill-active" pour tout désélectionner
+        });
+    });
+
+    document.getElementById('applyFilters')?.addEventListener('click', function () {
+        // Écoute le clic sur le bouton "Appliquer" s’il existe
+
+        const params = new URLSearchParams();
+        // Crée un objet qui permet de construire les paramètres de l’URL
+
+        overlay.querySelectorAll('.pill.pill-active').forEach(function (p) {
+            // Récupère uniquement les pastilles actuellement sélectionnées
+
+            const id = p.dataset.genreId;
+            // Récupère l’identifiant du genre stocké dans l’attribut data-genre-id
+
+            if (id) params.append('genres[]', id);
+            // Ajoute l’id du genre dans l’URL s’il existe
+        });
+
+        window.location.href = '/actuellement-au-cinema?' + params.toString();
+        // Redirige vers la page avec les genres sélectionnés dans l’URL
+
+        close();
+        // Ferme la fenêtre des filtres
+    });
 });

@@ -7,12 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model{
     protected $table ='Reservation';
     protected $primaryKey = 'idRes';
-    public $timestamps = false;
+    public $timestamps ;
     protected $fillable=[
-        'datRes'
+        'idUser',
+        'idSea'
     ];
     public function concerners()
     {
         return $this->hasMany(Concerner::class, 'idRes');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'idUser');
+    }
+    public function seance()
+    {
+        return $this->belongsTo(Seance::class, 'idSea');
     }
 }

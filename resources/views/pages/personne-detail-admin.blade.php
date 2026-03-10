@@ -12,7 +12,7 @@
 </head>
 
 <body class="film-detail-body">
-@include('pages.header')
+@include('pages.header-admin')
 
 <main class="film-detail-wrap">
     <section class="film-detail-card">
@@ -38,10 +38,10 @@
                     {{ $personne->prenomPer }} {{ $personne->nomPer }}
                 </h1>
 
-{{--                @if(!empty($personne->agePer))--}}
-{{--                    <span class="film-detail-note">Âge : {{ $personne->agePer }} ans</span>--}}
-                    <span class="film-detail-note">{{ ucfirst($role ?? 'personne') }}</span>
-{{--                @endif--}}
+                {{--                @if(!empty($personne->agePer))--}}
+                {{--                    <span class="film-detail-note">Âge : {{ $personne->agePer }} ans</span>--}}
+                <span class="film-detail-note">{{ ucfirst($role ?? 'personne') }}</span>
+                {{--                @endif--}}
             </div>
 
             <div class="film-detail-meta">
@@ -56,8 +56,8 @@
                 </p>
 
                 <p>
-{{--                    <span class="meta-label">Rôle :</span>--}}
-{{--                    {{ ucfirst($role ?? 'personne') }}--}}
+                    {{--                    <span class="meta-label">Rôle :</span>--}}
+                    {{--                    {{ ucfirst($role ?? 'personne') }}--}}
                     <span class="meta-label">Âge : </span> {{ $age !== null ? $age . ' ans' : 'Non renseigné' }}
                 </p>
             </div>

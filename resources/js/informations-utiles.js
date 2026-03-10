@@ -1,63 +1,50 @@
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
+    // Attend que toute la page HTML soit complètement chargée avant de commencer
 
-       const openBtn = document.getElementById('openCinemaPopup');
-    // On récupère dans le HTML l'élément qui a l'id "openCinemaPopup"
+    const openBtn = document.getElementById('openCinemaPopup');
+    // Récupère le bouton qui sert à ouvrir la popup cinéma
 
     const overlay = document.getElementById('cinemaPopupOverlay');
-    // On récupère l'overlay, avec l'id "cinemaPopupOverlay".
+    // Récupère la grande zone qui contient le fond + la popup cinéma
 
     const closeBtn = document.getElementById('cinemaPopupClose');
-    // On récupère le bouton qui sert à fermer la popup.
+    // Récupère le bouton qui permet de fermer la popup
 
     if (!openBtn || !overlay || !closeBtn) return;
-    // Vérification de sécurité :
-    // Si un des éléments n'existe pas dans la page, on arrête le script.
+    // Sécurité : si un des éléments n'existe pas sur la page, on arrête le script
+
     const open = () => {
-        // Fonction "open" : elle sert à ouvrir / afficher la popup.
+        // Fonction qui ouvre la popup cinéma
 
         overlay.classList.add('active');
-        // On ajoute la classe CSS "active" à l'overlay.
-        // En général, cette classe est utilisée en CSS pour afficher la popup.
+        // Ajoute la classe "active" → la popup devient visible grâce au CSS
 
         overlay.setAttribute('aria-hidden', 'false');
-        // Accessibilité :
-        // On indique que l'élément n'est plus caché (visible pour les lecteurs d'écran).
-
+        // Accessibilité : indique que la popup est visible pour les lecteurs d’écran
     };
-    // Fin de la fonction open()
 
     const close = () => {
-        // Fonction "close" : elle sert à fermer / masquer la popup.
+        // Fonction qui ferme la popup cinéma
 
         overlay.classList.remove('active');
-        // On retire la classe CSS "active".
-        // Le CSS peut alors cacher la popup.
+        // Retire la classe "active" → la popup est masquée
 
         overlay.setAttribute('aria-hidden', 'true');
-        // Accessibilité :
-        // On indique que l'élément est caché.
+        // Accessibilité : indique que la popup est cachée pour les lecteurs d’écran
     };
-    // Fin de la fonction close()
 
     openBtn.addEventListener('click', open);
-    // Quand on clique sur le bouton d'ouverture,
-    // on exécute la fonction open().
+    // Quand on clique sur le bouton d’ouverture → on exécute la fonction open()
 
     closeBtn.addEventListener('click', close);
-    // Quand on clique sur le bouton de fermeture,
-    // on exécute la fonction close().
-
-    // clic en dehors de la popup
-    // Commentaire : ici on gère le cas où l'utilisateur clique sur le fond (overlay).
+    // Quand on clique sur le bouton de fermeture → on exécute la fonction close()
 
     overlay.addEventListener('click', (e) => {
-        // On écoute les clics sur l'overlay.
-        // "e" = l'événement de clic (event).
+        // Quand on clique quelque part dans la zone de l’overlay
 
         if (e.target === overlay) close();
-        // e.target = l'élément exact cliqué.
-        // Si on a cliqué directement sur le fond et non sur le panneau lui-même,
-        // on ferme les filtres..
+        // On vérifie si on a cliqué exactement sur le fond
+        // Si oui → on ferme la popup
     });
 
-})();
+});

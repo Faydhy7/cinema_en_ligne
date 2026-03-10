@@ -14,4 +14,7 @@ class Cinema extends Model{
         'cpCin',
         'vilCin'
     ];
+    public function salles() {
+        return $this->hasMany(Salle::class, 'idCin');
+    }
 }

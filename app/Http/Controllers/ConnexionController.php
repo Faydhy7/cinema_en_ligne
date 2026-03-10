@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Models\Reservation;
 
 class ConnexionController extends Controller {
     public function showLogin()
@@ -51,14 +53,31 @@ class ConnexionController extends Controller {
         //dd(Auth::attempt($credentials));
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
-            //ajouter prise en charge reservation  ici
-            return redirect()->route('seance')
-                ->with('success', 'Connexion effectuée');
+            $cinema = \App\Models\Cinema::inRandomOrder()->first();
+
+            if(Session::has('reservation_seance')) {
+                $IdSea = Session::get('reservation_seance');
+                Reservation::firstOrCreate([
+                    'idUser' => Auth::id(),
+                    'idSea' => $IdSea
+                ]);
+                Session::forget('reservation_seance');
+            }
+            return redirect()->route('seance.show', $cinema->idCin)->with('success', 'Connexion et reservation effectuée');
         }
 
         return back()->withErrors([
             'username' => 'Identifiants incorrects'
         ]);
 
+    }
+    public function showLoginForm(Request $request)
+    {
+        $seance = null;
+        if ($request->has('seance')) {
+            $seance = \App\Models\Seance::find($request->seance);
+        }
+
+        return view('pages.connexion_reservation', compact('seance'));
     }
 }
