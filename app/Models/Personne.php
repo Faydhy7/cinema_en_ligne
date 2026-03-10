@@ -20,6 +20,11 @@ class Personne extends Model
         'imgPer'
     ];
 
+    public function roles()
+    {
+        return $this->belongsToMany(RolePersonne::class, 'participe', 'idPer', 'idRolePer');
+    }
+
     public function rolepersonne()
     {
         return $this->belongsToMany(RolePersonne::class, 'participe','idPer', 'idRolePer');
