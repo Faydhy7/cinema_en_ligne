@@ -9,4 +9,10 @@ class Participe extends Model{
     protected $primaryKey = 'idParticipe';
     public $timestamps = false;
 
+    protected $fillable = [
+        'idPer',
+        'idFil',
+        'idRolePer',
+    ];
+
 }
