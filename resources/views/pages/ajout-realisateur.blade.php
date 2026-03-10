@@ -22,6 +22,7 @@
         <div class="add-film-content-grid">
             <!-- Colonne gauche : image -->
             <div>
+
                 <label for="affiche" class="add-film-poster-upload" aria-label="Ajouter une affiche">
                     <svg viewBox="0 0 64 64" class="add-film-poster-icon" aria-hidden="true">
                         <rect x="10" y="8" width="34" height="34" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="3"/>

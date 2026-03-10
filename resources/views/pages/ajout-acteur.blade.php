@@ -38,6 +38,7 @@
                     <a href="https://www.themoviedb.org/?language=fr" target="_blank" style="color: #94a3b8; text-decoration: underline;">The Movie Database (TMDB)</a>.
                 </p>
 
+
                 <input
                     id="affiche"
                     type="file"
