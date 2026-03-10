@@ -165,7 +165,7 @@ class FilmAdminController extends Controller
 
     public function edit($id)
     {
-        $film = Film::with(['acteurs', 'realisateurs', 'scenaristes'])->find($id);
+        $film = Film::with(['acteursPrincipaux', 'realisateurs', 'scenaristes'])->find($id);
         $genres = Genre::all();
         $acteurs = Personne::join('participe', 'personne.idPer', '=', 'participe.idPer')
             ->where('participe.idRolePer', 2)
@@ -202,7 +202,7 @@ class FilmAdminController extends Controller
             'titre'       => ['required', 'string', 'max:255'],
             'duree'       => ['nullable', 'string', 'max:50'],
             'synopsis'    => ['nullable', 'string'],
-            'date_sortie' => ['required', 'date'],
+            'date_sortie' => ['required', 'date_format:d/m/Y'],
 
             'genres'      => ['required', 'array', 'min:1'],
             'genres.*'    => ['integer', 'exists:genre,idGenre'],

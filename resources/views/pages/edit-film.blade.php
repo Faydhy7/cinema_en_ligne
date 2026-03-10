@@ -18,6 +18,17 @@
 <main class="add-actor-page add-film-page">
     <h1 class="add-actor-title add-film-title">Modifier un film</h1>
 
+    @if ($errors->any())
+        <div style="background: #7f1d1d; color: white; padding: 12px; margin-bottom: 16px; border-radius: 8px;">
+            <strong>Le formulaire contient des erreurs :</strong>
+            <ul style="margin: 8px 0 0 18px;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form class="add-actor-form add-film-form" action="{{ route('film.update', $film->idFil) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -139,7 +150,7 @@
 
                     <div class="add-film-side-list js-repeat-list" data-type="acteurs">
                         @php
-                            $acteursSelected = old('acteurs', $film->acteurs->pluck('idPer')->toArray());
+                            $acteursSelected = old('acteurs', $film->acteursPrincipaux->pluck('idPer')->toArray());
                             if (count($acteursSelected) === 0) $acteursSelected = [null];
                         @endphp
 
