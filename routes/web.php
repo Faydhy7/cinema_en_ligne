@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RechercheController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ConnexionController;
@@ -153,3 +154,6 @@ Route::get('/seance', function () {
 });
 //page seance et redirection vers un film aleatoire
 Route::get('/seance/{cinema}', [CinemaController::class, 'show'])->name('seance.show');
+
+// Loupe de recherche
+Route::get('/recherche', [RechercheController::class, 'index'])->name('recherche');
