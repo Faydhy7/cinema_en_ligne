@@ -48,28 +48,30 @@ class FilmController extends Controller
 
 
     //Contrôle les films qui s'affiche dans la page d'accueil
-    public function filmsAccueil(){
-    public function filmsAccueil(Request $request){
+    public function filmsAccueil(Request $request)
+    {
         $recherche = $request->input('recherche');
-        $filmsAuCinema = Film::where('dateSortie', '<=', now())
-            ->orderBy('dateSortie', 'desc') // Les plus récents en premier
-            ->take(6)
-            ->get();
-        $filmsProchainement = Film::where('dateSortie', '>', now())
-            ->orderBy('dateSortie', 'asc')
-            ->take(6)
-            ->get();
-        $query = Film::has('seances');
+        $filmsRecherche = null;
 
         if (!empty($recherche)) {
             $filmsRecherche = Film::where('titreFil', 'LIKE', '%' . $recherche . '%')->get();
         }
 
+        $filmsAuCinema = Film::where('dateSortie', '<=', now())
+            ->orderBy('dateSortie', 'desc')
+            ->take(6)
+            ->get();
+
+        $filmsProchainement = Film::where('dateSortie', '>', now())
+            ->orderBy('dateSortie', 'asc')
+            ->take(6)
+            ->get();
+
         if (auth()->check() && auth()->user()->role === 'admin') {
-            return view('pages.accueil-admin', compact('filmsAuCinema', 'filmsProchainement'));
+            return view('pages.accueil-admin', compact('filmsAuCinema', 'filmsProchainement', 'filmsRecherche', 'recherche'));
         }
 
-        return view('pages.accueil', compact('filmsAuCinema', 'filmsProchainement',));
+        return view('pages.accueil', compact('filmsAuCinema', 'filmsProchainement', 'filmsRecherche', 'recherche'));
     }
 
 
