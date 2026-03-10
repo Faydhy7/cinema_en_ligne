@@ -13,44 +13,51 @@
 </head>
 <body class="add-actor-body">
 @include('pages.header-admin')
+
 <main class="add-actor-page">
     <h1 class="add-actor-title">Ajouter un réalisateur</h1>
 
-    <form class="add-actor-form" action="/realisateurs/ajouter" method="POST">
-        <div class="add-actor-grid">
-            <input
-                type="text"
-                name="nom"
-                class="add-actor-input"
-                placeholder="Nom"
-                required
-            />
+    <form class="add-actor-form" action="{{ route('realisateur.store') }}" method="POST">
+        @csrf
+        <div class="add-film-content-grid">
+            <!-- Colonne gauche : image -->
+            <div>
+                <label for="affiche" class="add-film-poster-upload" aria-label="Ajouter une affiche">
+                    <svg viewBox="0 0 64 64" class="add-film-poster-icon" aria-hidden="true">
+                        <rect x="10" y="8" width="34" height="34" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="3"/>
+                        <circle cx="22" cy="20" r="4" fill="currentColor"/>
+                        <path d="M14 36l9-10 7 7 5-5 9 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M48 41v15" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M40.5 48.5H55.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </label>
 
-            <input
-                type="text"
-                name="prenom"
-                class="add-actor-input"
-                placeholder="Prénom"
-                required
-            />
+                <p class="program-help">
+                    Pour garantir une qualité visuelle optimale, l'équipe vous recommande d'utiliser les images de
+                    <a href="https://www.themoviedb.org/?language=fr" target="_blank" style="color: #94a3b8; text-decoration: underline;">The Movie Database (TMDB)</a>.
+                </p>
 
-            <input
-                type="text"
-                name="date_naissance"
-                class="add-actor-input"
-                placeholder="Date de naissance"
-            />
+                <input
+                    id="affiche"
+                    type="file"
+                    name="affiche"
+                    class="add-film-file-input"
+                    accept="image/*"
+                />
+            </div>
 
-            <input
-                type="text"
-                name="lieu_naissance"
-                class="add-actor-input"
-                placeholder="Lieu de naissance"
-            />
+            <!-- Colonne droite : infos acteur -->
+            <div class="add-film-side-col">
+                <input type="text" name="nomPer" class="add-actor-input" placeholder="Nom" required />
+                <input type="text" name="prenomPer" class="add-actor-input" placeholder="Prénom" required />
+                <input type="text" name="lieuNaisPer" class="add-actor-input" placeholder="Lieu de naissance" required />
+
+                <input type="date" name="dateNaisPer" class="add-actor-input" required />
+            </div>
         </div>
 
         <textarea
-            name="biographie"
+            name="bioPer"
             class="add-actor-textarea"
             placeholder="Biographie"
         ></textarea>
