@@ -11,31 +11,40 @@
 <body>
 <div class="container">
 
+    @if(session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+
     <!-- GAUCHE : logo + récap séance -->
     <div class="logo-section booking-section">
         <a href="/" class="logo">
             <img src="{{ asset('images/logo_CineForAll.png') }}" alt="CineForAll">
         </a>
 
+        @if($seance)
         <div class="booking-card">
             <div class="booking-poster">
-                <img src="https://www.themoviedb.org/t/p/w1280/3tbnGsJpxtndRkxHeq3uq7VymzI.jpg" alt="Running man">
+                <img src="{{asset('images/'.$seance->film->imgFil)}}">
             </div>
 
             <div class="booking-info">
-                <p><strong>Film :</strong> Running man <span class="booking-badge">VF</span></p>
-                <p><strong>Salle :</strong> 10</p>
-                <p><strong>Horaire :</strong> 14H10 – 30/11</p>
+                <p><strong>Film :</strong> {{$seance->film->titreFil}} <span class="booking-badge"> {{$seance->typeSeance->libTypeSea}} </span></p>
+                <p><strong>Salle :</strong> {{$seance->salle->numSal}} </p>
+                <p><strong>Horaire :</strong> {{\Carbon\Carbon::parse($seance->dateHeurSea)->format('H\hi - d/m')}} </p>
             </div>
         </div>
+        @endif
     </div>
+
 
     <!-- DROITE : formulaire -->
     <div class="form-section">
         <div class="form-card">
             <h1>Connexion</h1>
 
-            <form method="POST" action="{{ route('login_reservation') }}">
+            <form method="POST" action="{{ route('login_reservationPOST') }}">
                 @csrf
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur:</label>
@@ -55,7 +64,7 @@
             </form>
 
             <div class="login-link">
-                Déjà inscrit ? <a href="/inscription_reservation">S'inscrire ici</a>
+                Pas encore inscrit ? <a href="{{ route('inscription_reservation', ['seance' => $seance->idSea ?? null]) }}">S'inscrire ici</a>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
 </head>
 
 <body class="films-body">
-@include('pages.header')
+@include('pages.header-admin')
 
 <div style="width: 100%;">
     <h1 class="page-title">Actuellement au cinéma</h1>

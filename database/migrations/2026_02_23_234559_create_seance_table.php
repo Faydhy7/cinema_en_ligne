@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('seance', function (Blueprint $table) {
             $table->id('idSea');
             $table->dateTime('dateHeurSea');
-            $table->string('langSea');
             $table->foreignId('idFil')->constrained('film','idFil');
             $table->foreignId('idSal')->constrained('salle','idSal');
             $table->foreignId('idTypeSea')->constrained('type_seance','idTypeSea');
+            $table->foreignId('idLangue')->constrained('langue','idLangue');
             $table->timestamps();
         });
     }

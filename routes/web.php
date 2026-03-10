@@ -10,28 +10,30 @@ use App\Http\Controllers\RealisateurController;
 use App\Http\Controllers\ScenaristeController;
 use App\Http\Controllers\FilmAdminController;
 use App\Http\Controllers\CinemaController;
+use App\Http\Controllers\DeconnexionController;
+use App\Http\Controllers\ReservationController;
 
 Route::get('/connexion', function () {
     return view('pages.connexion');
 });
 Route::post('/connexion', [ConnexionController::class, 'login'])->name('login');
-Route::post('/connexion_reservation', [ConnexionController::class, 'login_reservation'])->name('login_reservation');
+
+Route::get('/connexion_reservation', [ConnexionController::class, 'showLoginForm'])->name('login_reservation');
+Route::post('/connexion_reservation', [ConnexionController::class, 'login_reservation'])->name('login_reservationPOST');
 
 Route::get('/inscription', function () {
     return view('pages.Inscription');
 });
 Route::post('/inscription', [InscriptionController::class, 'sign_in'])->name('sign_in');
+
+Route::get('/inscription_reservation', [InscriptionController::class, 'showRegistrationForm'])->name('inscription_reservation');
 Route::post('/inscription_reservation', [InscriptionController::class, 'sign_in_reservation'])->name('sign_in_reservation');
 
 Route::post('/deconnexion', [DeconnexionController::class, 'logout'])->name('logout');
 
-Route::get('/seance', function () {
-    return view('pages.seance');
-})->name('seance');
-
-Route::get('/connexion_reservation', function () {
-    return view('pages.connexion_reservation');
-});
+Route::post('/seance/reservation/{seance}', [ReservationController::class, 'reservation'])
+    //->middleware('auth')
+    ->name('reservation');
 
 Route::get('/gestion-acteur', function () {
     return view('pages.gestion-acteur');
@@ -51,10 +53,6 @@ Route::get('/gestion-cinema', function () {
 
 Route::get('/gestion-programmation', function () {
     return view('pages.gestion-programmation');
-});
-
-Route::get('/inscription_reservation', function () {
-    return view('pages.inscription_reservation');
 });
 
 Route::get('/ajout-cinema', function () {
@@ -151,7 +149,7 @@ Route::delete('/scenariste/{id}', [ScenaristeController::class, 'destroy'])->nam
 Route::get('/seance', function () {
     $cinema =\App\Models\Cinema::inRandomOrder()->first();
     return redirect()->route('seance.show', $cinema->idCin);
-});
+})->name('seance');
 //page seance et redirection vers un film aleatoire
 Route::get('/seance/{cinema}', [CinemaController::class, 'show'])->name('seance.show');
 

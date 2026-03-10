@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="{{ asset('cinema-style.css') }}">
 </head>
 
+<!-- header admin si admin a ajouter  -->
 <body class="cinema-body">
 @include('pages.header')
+
 
 <div class="main-content">
 
@@ -40,6 +42,12 @@
         <p class="cinema-subtitle">{{ $cinema->vilCin }}</p>
         <button class="info-btn" type="button" id="openCinemaPopup">Informations utiles</button>
     </div>
+
+    @if(session('success'))
+        <script>
+            alert("Réservation enregistrée !");
+        </script>
+    @endif
 
     <!-- Programme -->
     <div class="cinema-program">
@@ -71,20 +79,23 @@
                                 $typSal = $seance->salle->typeSalle->libTypSal ?? '';
                                 $langue = $seance->typeSeance->libTypeSea ?? '';
                             @endphp
-                            <div class="time-card">
+                            <form action="{{ route('reservation', $seance->idSea) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="time-card">
                                 <div class="time-card-top">
-                            <span class="time-badge">
-                                @if(in_array($typSal, ['IMAX', '4DX', 'Dolby Cinéma']))
-                                    {{ $typSal }}
-                                @else
-                                    &nbsp;
-                                @endif
-                            </span>
+                                    <span class="time-badge">
+                                        @if(in_array($typSal, ['IMAX', '4DX', 'Dolby Cinéma']))
+                                            {{ $typSal }}
+                                        @else
+                                            &nbsp;
+                                        @endif
+                                    </span>
                                     <span class="time-lang">{{ $langue }}</span>
                                 </div>
                                 <div class="time-hour">{{ $debut->format('G\hi') }}</div>
                                 <div class="time-end">(fin {{ $fin->format('G\hi') }})</div>
-                            </div>
+                                </button>
+                            </form>
                         @endforeach
                     </div>
                 </div>
