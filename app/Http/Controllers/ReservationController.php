@@ -19,6 +19,8 @@ class ReservationController extends Controller
             return view('pages.connexion_reservation', compact('seance'));
         }
 
+
+
         Reservation::firstOrCreate([
             'idUser' => Auth::id(),
             'idSea' => $IdSea

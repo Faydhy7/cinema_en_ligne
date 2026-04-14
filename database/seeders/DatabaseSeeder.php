@@ -190,5 +190,7 @@ class DatabaseSeeder extends Seeder
         Participe::create(['idPer' => $pBongJoonho->idPer,  'idFil' => $f26->idFil, 'idRolePer' => $rReal->idRolePer]);
         Participe::create(['idPer' => $pPattinson->idPer,   'idFil' => $f26->idFil, 'idRolePer' => $rActe->idRolePer]);
         Participe::create(['idPer' => $pBongJoonho->idPer,  'idFil' => $f26->idFil, 'idRolePer' => $rSce->idRolePer]);
+        //ajout d'utilisateur de test Admin
+        Users::create()
     }
 }

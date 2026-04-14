@@ -50,9 +50,6 @@ Route::get('/gestion-scenariste', function () {
     return view('pages.gestion-scenariste');
 });
 
-Route::get('/gestion-cinema', function () {
-    return view('pages.gestion-cinema');
-});
 
 Route::get('/gestion-programmation', function () {
     return view('pages.gestion-programmation');
@@ -160,3 +157,13 @@ Route::get('/seance/{cinema}', [CinemaController::class, 'show'])->name('seance.
 
 // route pour recuperer les recherches de la loupe
 Route::get('/recherche', [RechercheController::class, 'index'])->name('recherche');
+
+
+//Gestion cinema
+Route::get('/gestion-cinema', [CinemaController::class, 'index'])->name('cinema.admin.gestion');
+Route::get('/ajout-cinema/ajouter', [CinemaController::class, 'create'])->name('cinema.create');
+Route::post('/ajout-cinema/ajouter', [CinemaController::class, 'store'])->name('cinema.store');
+Route::get('/admin/cinema/{id}/edit', [CinemaController::class, 'edit'])->name('cinema.edit');
+Route::put('/admin/cinema/{id}', [CinemaController::class, 'update'])->name('cinema.update');
+Route::delete('/cinema/{id}', [CinemaController::class, 'destroy'])->name('cinema.destroy');
+

@@ -231,10 +231,10 @@ class FilmAdminController extends Controller
         $syncData = [];
 
         foreach ($request->input('acteurs', []) as $idPer) {
-            if ($idPer) $syncData[$idPer] = ['idRolePer' => 1];
+            if ($idPer) $syncData[$idPer] = ['idRolePer' => 2];
         }
         foreach ($request->input('realisateurs', []) as $idPer) {
-            if ($idPer) $syncData[$idPer] = ['idRolePer' => 2];
+            if ($idPer) $syncData[$idPer] = ['idRolePer' => 1];
         }
         foreach ($request->input('scenaristes', []) as $idPer) {
             if ($idPer) $syncData[$idPer] = ['idRolePer' => 3];

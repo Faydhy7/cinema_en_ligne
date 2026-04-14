@@ -11,6 +11,7 @@ use App\Models\TypeSalle;
 use App\Models\TypeSeance;
 use App\Models\Personne;
 use Carbon\Carbon;
+use App\Models\Participe;
 
 class FilmController extends Controller
 {
@@ -57,13 +58,14 @@ class FilmController extends Controller
             $filmsRecherche = Film::where('titreFil', 'LIKE', '%' . $recherche . '%')->get();
         }
 
+
         $filmsAuCinema = Film::where('dateSortie', '<=', now())
-            ->orderBy('dateSortie', 'desc')
+            ->orderBy('titreFil', 'desc')
             ->take(6)
             ->get();
 
         $filmsProchainement = Film::where('dateSortie', '>', now())
-            ->orderBy('dateSortie', 'asc')
+            ->orderBy('titreFil', 'asc')
             ->take(6)
             ->get();
 
@@ -111,24 +113,30 @@ class FilmController extends Controller
         return view('pages.film', compact('film'));
     }
 
+    // Méthode pour afficher le détail d'un acteur
     public function acteurdetail($id)
     {
-        $acteur = Personne::whereHas('rolepersonne', function ($q) {
-            $q->where('libRolePer', 'Acteur principal');
-        })->findOrFail($id);
+        // On cherche dans la table personne la personne avec l'id passé dans l'URL
+        // Si l'id n'existe pas en base, Laravel retourne automatiquement une erreur 404
+        $acteur = Personne::findOrFail($id);
 
+        // On envoie la personne trouvée à la vue personne-detail
+        // 'role' permet à la vue de savoir qu'on affiche un acteur
         return view('pages.personne-detail', [
             'personne' => $acteur,
             'role'     => 'acteur',
         ]);
     }
 
+// Méthode pour afficher le détail d'un réalisateur
     public function realisateurdetail($id)
     {
-        $realisateur = Personne::whereHas('rolepersonne', function ($q) {
-            $q->where('libRolePer', 'Realisateur');
-        })->findOrFail($id);
+        // on cherche la personne par son id
+        // findOrFail retourne la personne si elle existe, sinon 404
+        $realisateur = Personne::findOrFail($id);
 
+        // On envoie la personne à la vue avec le role 'realisateur'
+        // pour que la vue sache comment l'afficher
         return view('pages.personne-detail', [
             'personne' => $realisateur,
             'role'     => 'realisateur',

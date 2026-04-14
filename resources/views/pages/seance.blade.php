@@ -67,6 +67,7 @@
                             @if($film->dureFil)
                                 ({{ intdiv($film->dureFil, 60) }}h{{ str_pad($film->dureFil % 60, 2, '0', STR_PAD_LEFT) }})
                             @endif
+                            {{ $film->rolePer->nomPer ?? ''}}
                         </p>
                     </div>
 

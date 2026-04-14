@@ -25,6 +25,7 @@
                 <a href="/gestion-films" id="gestionLink" class="gestion-link">
                     Gestion des films
                 </a>
+                <div> </div>
 
                 <div class="gestion-popup" id="gestionPopup">
                     <a href="/gestion-acteur">Acteur</a>

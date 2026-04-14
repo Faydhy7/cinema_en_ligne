@@ -34,6 +34,7 @@ class RechercheController extends Controller
         // --- PERSONNES (acteurs, réalisateurs, scénaristes) ---
         $roles = ['Acteur principal', 'Realisateur', 'Scenariste'];
 
+
         foreach ($roles as $role) {
             $personnes = Personne::whereHas('roles', function($query) use ($role) {
                 $query->where('libRolePer', $role);

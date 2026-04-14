@@ -42,4 +42,61 @@ class CinemaController extends Controller
 
         return view('pages.seance', compact('cinema', 'tousCinemas', 'films', 'tarifs', 'typesSalles'));
     }
+
+    public function index()
+    {
+        $cinemas = Cinema::all();
+        return view('pages.gestion-cinema', compact('cinemas'));
+    }
+
+    public function create()
+    {
+        return view('pages.ajout-cinema');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nomCin'  => 'required|string|max:255',
+            'AdrCin'  => 'required|string|max:255',
+            'cpCin'   => 'required|string|max:10',
+            'vilCin'  => 'required|string|max:255',
+        ]);
+
+        Cinema::create($validated);
+
+        return redirect()->route('cinema.admin.gestion')->with('success', 'Cinéma ajouté');
+    }
+
+    public function edit($id)
+    {
+        $cinema = Cinema::findOrFail($id);
+        return view('pages.edit-cinema', compact('cinema'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cinema = Cinema::findOrFail($id);
+
+        $validated = $request->validate([
+            'nomCin'  => 'required|string|max:255',
+            'AdrCin'  => 'required|string|max:255',
+            'cpCin'   => 'required|string|max:10',
+            'vilCin'  => 'required|string|max:255',
+        ]);
+
+        $cinema->nomCin = $validated['nomCin'];
+        $cinema->AdrCin = $validated['AdrCin'];
+        $cinema->cpCin  = $validated['cpCin'];
+        $cinema->vilCin = $validated['vilCin'];
+        $cinema->save();
+
+        return redirect()->route('cinema.admin.gestion')->with('success', 'Cinéma mis à jour');
+    }
+
+    public function destroy($id)
+    {
+        Cinema::findOrFail($id)->delete();
+        return redirect()->route('cinema.admin.gestion')->with('success', 'Cinéma supprimé');
+    }
 }

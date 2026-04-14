@@ -27,7 +27,6 @@ class Personne extends Model
 
     public function rolepersonne()
     {
-        return $this->belongsToMany(RolePersonne::class, 'participe','idPer', 'idRolePer');
         return $this->belongsToMany(RolePersonne::class, 'participe', 'idPer', 'idRolePer');
     }
 }

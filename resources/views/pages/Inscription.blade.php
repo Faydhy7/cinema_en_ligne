@@ -45,6 +45,10 @@
                 </div>
 
                 <div>
+                    <input type="checkbox" name="admin ?"> est un admin
+                </div>
+
+                <div>
                     <input type="checkbox" name="remember"> Se souvenir de moi
                 </div>
 

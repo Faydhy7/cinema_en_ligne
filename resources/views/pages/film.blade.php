@@ -46,18 +46,23 @@
                 </p>
                 <p><span class="meta-label">Réalisé par </span>
                     @forelse($film->realisateurs as $real)
-                        {{ $real->prenomPer }} {{ $real->nomPer }}{{ !$loop->last ? ', ' : '' }}
+                        <a href="{{ route('realisateur.simple.show', $real->idPer) }}">
+                            {{ $real->prenomPer }} {{ $real->nomPer }}</a>
+                        {{ !$loop->last ? ', ' : '' }}
                     @empty
                         <em>Non renseigné</em>
                     @endforelse
                 </p>
                 <p><span class="meta-label">Avec </span>
                     @forelse($film->acteursPrincipaux as $acteur)
-                        {{ $acteur->prenomPer }} {{ $acteur->nomPer }}{{ !$loop->last ? ', ' : '' }}
+                        <a href="{{ route('acteur.simple.show', $acteur->idPer) }}">
+                            {{ $acteur->prenomPer }} {{ $acteur->nomPer }}</a>
+                        {{ !$loop->last ? ', ' : '' }}
                     @empty
                         <em>Non renseigné</em>
                     @endforelse
                 </p>
+
             </div>
 
             <p class="film-detail-synopsis">

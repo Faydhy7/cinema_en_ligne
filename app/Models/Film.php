@@ -89,17 +89,17 @@ class Film extends Model
 
     public function acteurs()
     {
-        return $this->personnes()->wherePivot('idRolePer', 1);
+        return $this->personnes()->wherePivot('idRolePer', 2);
     }
 
     public function acteursPrincipaux()
     {
-        return $this->personnes()->wherePivot('idRolePer', 1);
+        return $this->personnes()->wherePivot('idRolePer', 2);
     }
 
     public function realisateurs()
     {
-        return $this->personnes()->wherePivot('idRolePer', 2);
+        return $this->personnes()->wherePivot('idRolePer', 1 );
     }
 
     public function scenaristes()
